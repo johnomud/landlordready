@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Renters' Rights Act 2025 Readiness Summary — LandlordReady</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b2a;--navy2:#162436;
+  --cream:#f8f6f1;
+  --amber:#c97d0a;--amber-light:#f5e9cc;
+  --red:#b31b1b;--red-light:#fde8e8;
+  --orange:#c45400;--orange-light:#fdeee3;
+  --green:#1a6b42;--green-light:#e3f5ec;
+  --gray:#6b7280;--gray2:#e5e7eb;--gray3:#f3f4f6;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --r:8px;--r2:12px;--r3:16px;
+}
+body{font-family:var(--sans);background:var(--gray3);color:var(--navy);padding:0;margin:0;font-size:16px;line-height:1.6}
+
+/* EMAIL WRAPPER */
+.email-chrome{max-width:680px;margin:2rem auto;background:#fff;border-radius:var(--r3);overflow:hidden;box-shadow:0 4px 40px rgba(13,27,42,.12)}
+
+/* EMAIL HEADER BAR */
+.email-header{background:#f0ede8;padding:.875rem 1.5rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid var(--gray2)}
+.email-dot{width:12px;height:12px;border-radius:50%}
+.email-dot.r{background:#ff6058}.email-dot.y{background:#ffbe2e}.email-dot.g{background:#2fc952}
+.email-subject-line{font-size:.8125rem;color:var(--gray);margin-left:.5rem}
+.email-subject-line strong{color:var(--navy)}
+
+/* REPORT HEADER */
+.report-header{background:var(--navy);padding:2rem 2.5rem}
+.rh-brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.rh-logo{font-family:var(--serif);font-size:1.125rem;color:#fff}
+.rh-logo em{font-style:normal;color:var(--amber)}
+.rh-date{font-size:.75rem;color:rgba(255,255,255,.35)}
+.rh-title{font-family:var(--serif);font-size:clamp(1.25rem,3vw,1.75rem);font-weight:600;color:#fff;line-height:1.2;margin-bottom:.5rem}
+.rh-sub{font-size:.875rem;color:rgba(255,255,255,.55);line-height:1.6}
+
+/* SCORE BAND */
+.score-band{display:flex;align-items:center;gap:1.5rem;padding:1.5rem 2.5rem;background:var(--orange-light);border-bottom:3px solid #f9c49b}
+.score-ring{width:76px;height:76px;border-radius:50%;background:var(--orange);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.score-ring-n{font-family:var(--serif);font-size:1.75rem;font-weight:600;line-height:1}
+.score-ring-l{font-size:.625rem;font-weight:600;letter-spacing:.04em;opacity:.85;margin-top:.1rem}
+.score-status{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--orange);margin-bottom:.375rem}
+.score-summary{font-size:.875rem;color:#374151;line-height:1.7}
+
+/* PROFILE STRIP */
+.profile-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid var(--gray2)}
+.ps-item{padding:.875rem 1rem;border-right:1px solid var(--gray2)}
+.ps-item:last-child{border-right:none}
+.ps-label{font-size:.6875rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gray);font-weight:600;margin-bottom:.25rem}
+.ps-value{font-size:.875rem;font-weight:600;color:var(--navy)}
+
+/* REPORT BODY */
+.report-body{padding:2rem 2.5rem}
+
+/* Section headers */
+.section-hdr{display:flex;align-items:center;gap:.625rem;margin-bottom:.875rem}
+.section-hdr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.section-hdr-dot.red{background:var(--red)}
+.section-hdr-dot.orange{background:var(--orange)}
+.section-hdr-dot.green{background:var(--green)}
+.section-hdr-label{font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.section-hdr-label.red{color:var(--red)}
+.section-hdr-label.orange{color:var(--orange)}
+.section-hdr-label.green{color:var(--green)}
+.section-hdr-count{font-size:.6875rem;font-weight:600;padding:.15rem .5rem;border-radius:50px;margin-left:.25rem}
+.section-hdr-count.red{background:var(--red-light);color:var(--red)}
+.section-hdr-count.orange{background:var(--orange-light);color:var(--orange)}
+
+/* Action cards */
+.rs{margin-bottom:2rem}
+.ac{border-radius:var(--r);margin-bottom:.625rem;overflow:hidden}
+.ac-top{padding:1rem 1.125rem}
+.ac.urgent .ac-top{background:var(--red-light);border-left:3px solid var(--red)}
+.ac.required .ac-top{background:var(--orange-light);border-left:3px solid var(--orange)}
+.ac-action{font-size:.9rem;font-weight:600;color:var(--navy);line-height:1.45;margin-bottom:.625rem}
+.ac-tags{display:flex;flex-wrap:wrap;gap:.375rem}
+.tag{font-size:.6875rem;font-weight:500;padding:.25rem .625rem;border-radius:50px;display:inline-flex;align-items:center;gap:.25rem}
+.tag-dl{background:#fde8e8;color:var(--red)}
+.tag-fine{background:#fff3e0;color:#7c3a00}
+.tag-cat{background:var(--gray3);color:var(--gray)}
+.tag-tl{background:var(--amber-light);color:#7c4a00}
+
+/* Expand detail */
+.ac-detail{padding:.875rem 1.125rem;background:rgba(0,0,0,.025);font-size:.8125rem;color:#374151;line-height:1.65;border-top:1px solid rgba(0,0,0,.06)}
+.ac.urgent .ac-detail{background:rgba(179,27,27,.04)}
+.ac.required .ac-detail{background:rgba(196,84,0,.04)}
+
+/* Positive */
+.good-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.good-item{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 1rem;background:var(--green-light);border-radius:var(--r);border-left:3px solid var(--green)}
+.good-check{color:var(--green);font-weight:700;flex-shrink:0;margin-top:.05rem}
+.good-text{font-size:.875rem;color:var(--navy);line-height:1.5}
+
+/* Divider */
+.divider{height:1px;background:var(--gray2);margin:1.5rem 0}
+
+/* Next steps */
+.next-steps{background:var(--navy);border-radius:var(--r2);padding:1.5rem;margin-bottom:1.5rem}
+.ns-title{font-family:var(--serif);font-size:1.125rem;font-weight:600;color:#fff;margin-bottom:1rem}
+.ns-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.ns-card{background:rgba(255,255,255,.07);border-radius:var(--r);padding:1.125rem;border:1px solid rgba(255,255,255,.08)}
+.ns-type{font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:.375rem}
+.ns-name{font-family:var(--serif);font-size:1rem;color:#fff;margin-bottom:.25rem;font-weight:600}
+.ns-price{font-size:.875rem;font-weight:600;color:var(--amber);margin-bottom:.25rem}
+.ns-desc{font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:.75rem}
+.ns-btn{display:block;text-align:center;padding:.6rem 1rem;font-size:.8rem;font-weight:600;border-radius:6px;text-decoration:none;transition:opacity .2s}
+.ns-btn:hover{opacity:.85}
+.ns-btn.lite{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85)}
+.ns-btn.amber{background:var(--amber);color:var(--navy)}
+
+/* Disclaimer */
+.disclaimer{background:var(--gray3);border-radius:var(--r);padding:1rem 1.125rem;font-size:.75rem;color:var(--gray);line-height:1.65;border-left:3px solid var(--gray2)}
+.disclaimer strong{color:var(--navy)}
+.disclaimer a{color:var(--amber);text-decoration:none}
+
+/* Footer */
+.report-footer{padding:1.25rem 2.5rem;border-top:1px solid var(--gray2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.rf-brand{font-family:var(--serif);font-size:.9375rem;color:var(--navy)}
+.rf-brand em{font-style:normal;color:var(--amber)}
+.rf-links{display:flex;gap:1.25rem}
+.rf-links a{font-size:.75rem;color:var(--gray);text-decoration:none}
+.rf-links a:hover{color:var(--navy)}
+
+/* Sample label */
+.sample-bar{background:var(--navy2);color:rgba(255,255,255,.7);text-align:center;padding:.625rem;font-size:.75rem;font-weight:500;letter-spacing:.05em}
+.sample-bar strong{color:var(--amber)}
+
+@media(max-width:600px){
+  .email-chrome{margin:.5rem;border-radius:var(--r2)}
+  .report-header,.report-body{padding:1.5rem}
+  .score-band{padding:1.25rem 1.5rem;flex-direction:column;align-items:flex-start;gap:1rem}
+  .profile-strip{grid-template-columns:1fr 1fr}
+  .ps-item:nth-child(2){border-right:none}
+  .ps-item:nth-child(3){border-right:1px solid var(--gray2)}
+  .ns-grid{grid-template-columns:1fr}
+  .report-footer{flex-direction:column;align-items:flex-start}
+  .rh-brand{flex-direction:column;align-items:flex-start;gap:.375rem}
+}
+</style>
+</head>
+<body>
+
+<div class="email-chrome">
+
+  <!-- Sample label -->
+  <div class="sample-bar">📋 <strong>Example report</strong> — this is what a real user receives, based on a typical 2–4 property landlord profile in South East England</div>
+
+  <!-- Email chrome -->
+  <div class="email-header">
+    <div class="email-dot r"></div>
+    <div class="email-dot y"></div>
+    <div class="email-dot g"></div>
+    <span class="email-subject-line"><strong>Your Renters' Rights Act 2025 readiness summary</strong> — action required before 1 May 2026</span>
+  </div>
+
+  <!-- Report header -->
+  <div class="report-header">
+    <div class="rh-brand">
+      <div class="rh-logo">Landlord<em>Ready</em></div>
+      <div class="rh-date">Generated 28 March 2026 · 09:14</div>
+    </div>
+    <h1 class="rh-title">Your Renters' Rights Act 2025<br>readiness summary</h1>
+    <p class="rh-sub">Prepared for: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd979c9398d3919c939991928f99bd98859c908d9198d39e92d38896">[email&#160;protected]</a> · Based on your answers to the four-step readiness guide</p>
+  </div>
+
+  <!-- Score band -->
+  <div class="score-band">
+    <div class="score-ring">
+      <span class="score-ring-n">44</span>
+      <span class="score-ring-l">out of 100</span>
+    </div>
+    <div>
+      <div class="score-status">Needs Attention</div>
+      <div class="score-summary">Based on your portfolio of 2–4 standard single-lets in the South East, you have 3 urgent items to address before the 1 May 2026 deadline and 4 required actions to complete shortly after. Your fixed-term Assured Shorthold Tenancies (ASTs) will automatically convert to periodic tenancies on 1 May — you do not need to take any action for the conversion itself. However, your current practice of increasing rent informally and the compliance gaps identified below do need to change before that date.</div>
+    </div>
+  </div>
+
+  <!-- Profile strip -->
+  <div class="profile-strip">
+    <div class="ps-item">
+      <div class="ps-label">Properties</div>
+      <div class="ps-value">2–4 single-lets</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-label">Location</div>
+      <div class="ps-value">South East England</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-label">Tenancy type</div>
+      <div class="ps-value">Some fixed-term Assured Shorthold Tenancies (ASTs)</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-label">Compliance items confirmed</div>
+      <div class="ps-value">4 of 8</div>
+    </div>
+  </div>
+
+  <!-- Report body -->
+  <div class="report-body">
+
+    <!-- URGENT -->
+    <div class="rs">
+      <div class="section-hdr">
+        <div class="section-hdr-dot red"></div>
+        <span class="section-hdr-label red">Urgent — action required now</span>
+        <span class="section-hdr-count red">3 items</span>
+      </div>
+
+      <div class="ac urgent">
+        <div class="ac-top">
+          <div class="ac-action">Send the Government Information Sheet to every existing tenant before 31 May 2026</div>
+          <div class="ac-tags">
+            <span class="tag tag-dl">⏰ Deadline: 31 May 2026</span>
+            <span class="tag tag-fine">⚠ Fine up to £7,000 per tenancy if missed</span>
+            <span class="tag tag-cat">Tenancy Documents</span>
+          </div>
+        </div>
+        <div class="ac-detail">
+          The Government Information Sheet explains the new Renters' Rights Act 2025 tenancy rules to tenants. Every landlord with an existing tenancy must provide this to each tenant by 31 May 2026. Failure to do so is a civil offence carrying a penalty of up to £7,000 per tenancy. The sheet is available free from gov.uk — you will need to provide the current version, not one you print in advance. If you have 3 properties, that is potentially £21,000 in fines for missing a single posting deadline.
+        </div>
+      </div>
+
+      <div class="ac urgent">
+        <div class="ac-top">
+          <div class="ac-action">Update your tenancy agreement template — remove all fixed-term and Section 21 clauses before issuing any new tenancy from 1 May 2026</div>
+          <div class="ac-tags">
+            <span class="tag tag-dl">⏰ Before any new tenancy from 1 May 2026</span>
+            <span class="tag tag-fine">⚠ Invalid documents; risk of losing possession rights</span>
+            <span class="tag tag-cat">Tenancy Documents</span>
+          </div>
+        </div>
+        <div class="ac-detail">
+          From 1 May 2026 you cannot enter into a new fixed-term Assured Shorthold Tenancy (AST). All new tenancies must be Assured Periodic Tenancies (APTs) — open-ended with no specified end date. Using a fixed-term agreement after this date is unlawful. Section 21 clauses in your agreement are also void from this date. If you use a template downloaded or purchased before May 2026, you must update it before issuing any new tenancy. The £29 document pack includes a fully updated template.
+        </div>
+      </div>
+
+      <div class="ac urgent">
+        <div class="ac-top">
+          <div class="ac-action">Learn the Section 8 possession grounds before 1 May 2026 — this becomes your only legal route to recover a property</div>
+          <div class="ac-tags">
+            <span class="tag tag-dl">⏰ Before 1 May 2026</span>
+            <span class="tag tag-fine">⚠ Without this knowledge you may be unable to recover possession when needed</span>
+            <span class="tag tag-cat">Possession & Eviction</span>
+          </div>
+        </div>
+        <div class="ac-detail">
+          Section 21 'no-fault' evictions are abolished from 1 May 2026. After that date, the only way to recover possession of a property is through the Section 8 process, using one of the statutory grounds set out in Schedule 2 to the Housing Act 1988 (as amended). Key grounds include: Ground 8 (3+ months rent arrears — mandatory), Ground 1A (landlord wishes to sell — 4 months notice, not available in first 12 months of tenancy), and Ground 14 (anti-social behaviour). Evidence is required for all grounds. Start familiarising yourself with these now, before you need them urgently.
+        </div>
+      </div>
+    </div>
+
+    <!-- REQUIRED -->
+    <div class="rs">
+      <div class="section-hdr">
+        <div class="section-hdr-dot orange"></div>
+        <span class="section-hdr-label orange">Required — do these soon</span>
+        <span class="section-hdr-count orange">4 items</span>
+      </div>
+
+      <div class="ac required">
+        <div class="ac-top">
+          <div class="ac-action">Switch to the formal Section 13 process for all rent increases from 1 May 2026 — verbal or informal increases become unlawful</div>
+          <div class="ac-tags">
+            <span class="tag tag-tl">📅 From 1 May 2026</span>
+            <span class="tag tag-cat">Rent & Deposits</span>
+          </div>
+        </div>
+        <div class="ac-detail">
+          Your answers indicate you currently increase rent informally or verbally. From 1 May 2026 this is no longer lawful. All rent increases must be served using a Section 13 notice (Form 4A), with a minimum of 2 months' written notice, and can only be applied once every 12 months. Tenants have the right to challenge any increase at the First-tier Tribunal (Property Chamber) if they believe it exceeds market rent. Informal or verbal increases after 1 May 2026 are void.
+        </div>
+      </div>
+
+      <div class="ac required">
+        <div class="ac-top">
+          <div class="ac-action">Obtain a valid Electrical Installation Condition Report (EICR) for any property where this is not confirmed — and provide a copy to each tenant</div>
+          <div class="ac-tags">
+            <span class="tag tag-tl">📅 Before next new tenancy</span>
+            <span class="tag tag-cat">Safety & Standards</span>
+          </div>
+        </div>
+        <div class="ac-detail">
+          You did not confirm a valid Electrical Installation Condition Report (EICR) in your compliance checklist. All privately rented properties in England have been required to have a valid Electrical Installation Condition Report (EICR) since April 2021. It must be carried out by a qualified electrician every 5 years (or sooner if recommended), and a copy must be provided to each tenant within 28 days of the inspection. A copy must also be given to any new tenant before they move in. Local councils can issue civil penalties of up to £30,000 for non-compliance.
+        </div>
+      </div>
+
+      <div class="ac required">
+        <div class="ac-top">
+          <div class="ac-action">Provide the current 'How to Rent' guide to any tenant who has not received the latest version</div>
+          <div class="ac-tags">
+            <span class="tag tag-tl">📅 At every new tenancy and on renewal</span>
+            <span class="tag tag-cat">Tenancy Documents</span>
+          </div>
+        </div>
+        <div class="ac-detail">
+          You did not confirm providing the 'How to Rent' guide in your checklist. This is a government document that must be provided to every tenant at the start of their tenancy and whenever the current version changes significantly. Failure to provide it can make a Section 21 notice invalid — and while Section 21 is being abolished, it also affects your credibility and legal position under the new rules. The current version is always available free from gov.uk.
+        </div>
+      </div>
+
+      <div class="ac required">
+        <div class="ac-top">
+          <div class="ac-action">Register on the Private Rented Sector (PRS) Database when it opens in late 2026 — registration will be required to use certain possession grounds</div>
+          <div class="ac-tags">
+            <span class="tag tag-tl">📅 Late 2026 — exact date to be confirmed</span>
+            <span class="tag tag-cat">Registration & Licensing</span>
+          </div>
+        </div>
+        <div class="ac-detail">
+          Phase 2 of the Renters' Rights Act 2025 introduces a mandatory national database for all private landlords, expected to open in late 2026. Registration will be required to use certain Section 8 possession grounds, meaning an unregistered landlord may find it significantly harder to recover their property through the courts. An annual registration fee will apply (amount to be confirmed). Landlord Ready will email you when the database opens and guide you through registration. No action needed today — but add it to your calendar for late 2026.
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- POSITIVE -->
+    <div class="rs">
+      <div class="section-hdr">
+        <div class="section-hdr-dot green"></div>
+        <span class="section-hdr-label green">What you already have right</span>
+      </div>
+      <ul class="good-list">
+        <li class="good-item">
+          <span class="good-check">✓</span>
+          <span class="good-text"><strong>Written tenancy agreement for all properties</strong> — the automatic conversion to Assured Periodic Tenancies (APTs) on 1 May 2026 will be straightforward, as you already have documented agreements in place</span>
+        </li>
+        <li class="good-item">
+          <span class="good-check">✓</span>
+          <span class="good-text"><strong>Valid Gas Safety Certificates confirmed</strong> — this is one of the most commonly missed compliance items and one of the most serious in terms of liability. You are ahead of many landlords on this</span>
+        </li>
+        <li class="good-item">
+          <span class="good-check">✓</span>
+          <span class="good-text"><strong>Deposits protected in an approved scheme</strong> — ensures you can deduct legitimate costs at the end of a tenancy and strengthens your legal position in any dispute</span>
+        </li>
+        <li class="good-item">
+          <span class="good-check">✓</span>
+          <span class="good-text"><strong>Smoke alarms confirmed working on every floor</strong> — a legal requirement on day one of every tenancy; having this in place across your portfolio reduces your liability exposure significantly</span>
+        </li>
+        <li class="good-item">
+          <span class="good-check">✓</span>
+          <span class="good-text"><strong>You completed this guide in March 2026</strong> — you have 34 days before the 1 May deadline. That is enough time to address all three urgent items if you act this week</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- NEXT STEPS -->
+    <div class="next-steps">
+      <div class="ns-title">What to do next</div>
+      <div class="ns-grid">
+        <div class="ns-card">
+          <div class="ns-type">One-time · Renters' Rights Act 2025</div>
+          <div class="ns-name">Document Pack</div>
+          <div class="ns-price">£29 — one-time purchase</div>
+          <div class="ns-desc">Updated tenancy agreement template, Section 8 notice templates for all key grounds, Government Information Sheet pre-formatted for your tenants, and Section 13 rent increase notice.</div>
+          <a href="landlordready-v2.html#products" class="ns-btn lite">Get the document pack →</a>
+        </div>
+        <div class="ns-card">
+          <div class="ns-type">Ongoing · never miss a certificate</div>
+          <div class="ns-name">Certificate Tracker</div>
+          <div class="ns-price">£7/month or £59/year</div>
+          <div class="ns-desc">Automated reminders before your Gas Safety Certificate, Electrical Installation Condition Report (EICR), Energy Performance Certificate (EPC) and House in Multiple Occupation (HMO) licence lapse — across every property.</div>
+          <a href="landlordready-v2.html#tracker" class="ns-btn amber">Start tracking certificates →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+      <strong>Important:</strong> This summary provides general information only and does not constitute legal advice. LandlordReady is not a solicitor or authorised legal advisor. The information is based on the Renters' Rights Act 2025 as understood at March 2026 — legislation and regulations change, and individual circumstances vary in ways a general tool cannot fully capture. Always verify against official sources at <a href="https://www.gov.uk" target="_blank">gov.uk</a> and consult a qualified solicitor before making legal decisions about possession, eviction, or tenancy changes. LandlordReady accepts no liability for decisions made in reliance on this information.
+    </div>
+
+  </div><!-- /report-body -->
+
+  <!-- Report footer -->
+  <div class="report-footer">
+    <div class="rf-brand">Landlord<em>Ready</em> · landlordready.co.uk</div>
+    <div class="rf-links">
+      <a href="#">Unsubscribe</a>
+      <a

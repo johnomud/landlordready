@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free Renters' Rights Act 2025 readiness guide for UK landlords. From £7/month certificate tracker.">
+<title>LandlordReady — Renters' Rights Act 2025 Readiness Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0d1b2a;--navy2:#162436;--navy3:#1d3045;--cream:#f8f6f1;--amber:#c97d0a;--amber-light:#f5e9cc;--red:#b31b1b;--red-light:#fde8e8;--orange:#c45400;--orange-light:#fdeee3;--green:#1a6b42;--green-light:#e3f5ec;--gray:#6b7280;--gray2:#e5e7eb;--gray3:#f3f4f6;--serif:'Fraunces',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;--r:8px;--r2:12px;--r3:16px}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--navy);font-size:16px;line-height:1.6;overflow-x:hidden}
+.banner{background:var(--red);color:#fff;text-align:center;padding:.6rem 1rem;font-size:.8125rem;font-weight:500;position:sticky;top:0;z-index:200}
+nav{background:var(--navy);padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:34px;z-index:199;border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-logo{font-family:var(--serif);font-size:1.25rem;color:#fff;text-decoration:none}
+.nav-logo em{font-style:normal;color:var(--amber)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.875rem;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--amber);color:var(--navy);font-size:.8125rem;font-weight:600;padding:.6rem 1.25rem;border-radius:var(--r);text-decoration:none}
+.hero{background:var(--navy);padding:5rem 2.5rem 4.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(201,125,10,.1) 0%,transparent 65%);pointer-events:none}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,125,10,.18);border:1px solid rgba(201,125,10,.35);color:#f5d48a;font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.375rem .875rem;border-radius:50px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.25rem);font-weight:600;color:#fff;line-height:1.1;letter-spacing:-.02em;max-width:760px;margin:0 auto 1.25rem}
+.hero h1 em{font-style:italic;color:#f5c842}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.65);max-width:560px;margin:0 auto 1rem;line-height:1.7}
+.hero-note{font-size:.8125rem;color:rgba(255,255,255,.32);margin-bottom:2.5rem}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.btn-primary{background:var(--amber);color:var(--navy);font-size:.9375rem;font-weight:600;padding:.875rem 2rem;border-radius:var(--r);text-decoration:none;display:inline-block;border:none;cursor:pointer;font-family:var(--sans);transition:transform .15s,opacity .2s}
+.btn-primary:hover{transform:translateY(-2px);opacity:.92}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.75);font-size:.875rem;border:1px solid rgba(255,255,255,.2);padding:.8rem 1.5rem;border-radius:var(--r);text-decoration:none;display:inline-block;transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.55);color:#fff}
+.hero-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.08)}
+.stat-n{font-family:var(--serif);font-size:2.25rem;font-weight:600;color:#fff;line-height:1}
+.stat-l{font-size:.8rem;color:rgba(255,255,255,.4);margin-top:.2rem}
+.products{padding:5rem 2.5rem;background:#fff}
+.sec-label{font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--amber);margin-bottom:.75rem}
+.sec-h2{font-family:var(--serif);font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:600;letter-spacing:-.02em;line-height:1.15;margin-bottom:.75rem}
+.sec-sub{font-size:1rem;color:var(--gray);max-width:540px;line-height:1.7;margin-bottom:3rem}
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--navy);border-radius:var(--r3);overflow:hidden}
+.prod-card{padding:2.5rem}
+.prod-card:first-child{border-right:1.5px solid var(--navy)}
+.prod-card:last-child{background:var(--navy2)}
+.prod-type{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.875rem}
+.prod-card:first-child .prod-type{color:var(--amber)}
+.prod-card:last-child .prod-type{color:rgba(245,212,138,.7)}
+.prod-name{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.2;margin-bottom:.5rem}
+.prod-card:last-child .prod-name{color:#fff}
+.prod-price{font-size:2rem;font-weight:600;font-family:var(--serif);margin-bottom:.2rem}
+.prod-card:last-child .prod-price{color:#fff}
+.prod-price-note{font-size:.8125rem;color:var(--gray);margin-bottom:1.25rem}
+.prod-card:last-child .prod-price-note{color:rgba(255,255,255,.4)}
+.prod-desc{font-size:.9rem;line-height:1.65;color:var(--gray);margin-bottom:1.25rem}
+.prod-card:last-child .prod-desc{color:rgba(255,255,255,.58)}
+.prod-feats{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.75rem}
+.prod-feats li{font-size:.875rem;display:flex;align-items:flex-start;gap:.625rem;line-height:1.4}
+.prod-feats li::before{content:'\2713';font-weight:700;flex-shrink:0;margin-top:.1rem}
+.prod-card:first-child .prod-feats li::before{color:var(--green)}
+.prod-card:last-child .prod-feats li{color:rgba(255,255,255,.72)}
+.prod-card:last-child .prod-feats li::before{color:#f5d48a}
+.rationale{border-radius:var(--r2);padding:1rem 1.125rem;font-size:.8125rem;line-height:1.6}
+.prod-card:first-child .rationale{background:var(--gray3);border-left:3px solid var(--amber);color:var(--gray)}
+.prod-card:first-child .rationale strong{color:var(--navy);display:block;margin-bottom:.25rem}
+.prod-card:last-child .rationale{background:rgba(255,255,255,.07);border-left:3px solid rgba(201,125,10,.5);color:rgba(255,255,255,.48)}
+.prod-card:last-child .rationale strong{color:rgba(255,255,255,.82);display:block;margin-bottom:.25rem}
+#guide{padding:5rem 1rem;background:var(--gray3)}
+.guide-card{background:#fff;border-radius:var(--r3);box-shadow:0 4px 40px rgba(13,27,42,.09);max-width:700px;margin:0 auto;overflow:hidden}
+.guide-hdr{background:var(--navy);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.guide-hdr-title{font-family:var(--serif);font-size:1.125rem;color:#fff;font-weight:600}
+.pdots{display:flex;gap:.5rem}
+.pd{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .3s}
+.pd.active{background:var(--amber)}.pd.done{background:rgba(255,255,255,.55)}
+.guide-body{padding:2rem}
+.step{display:none}.step.active{display:block}
+.step-eye{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:.5rem}
+.step-title{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--navy);margin-bottom:.5rem;line-height:1.2}
+.step-sub{font-size:.9rem;color:var(--gray);margin-bottom:1.75rem;line-height:1.6}
+.field{margin-bottom:1.25rem}
+.field label{display:block;font-size:.8125rem;font-weight:500;color:var(--navy);margin-bottom:.5rem}
+.cgrid{display:grid;gap:.625rem}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:1fr 1fr 1fr}
+.cb{padding:.875rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);background:#fff;font-family:var(--sans);font-size:.875rem;color:var(--navy);cursor:pointer;text-align:left;display:flex;align-items:center;gap:.75rem;line-height:1.3;transition:border-color .2s,background .2s}
+.cb:hover{border-color:var(--amber);background:var(--amber-light)}
+.cb.sel{border-color:var(--amber);background:var(--amber-light);font-weight:500}
+.cb-ic{width:20px;height:20px;border-radius:50%;border:2px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:all .2s}
+.cb.sel .cb-ic{background:var(--amber);border-color:var(--amber);color:#fff}
+.chk-list{display:flex;flex-direction:column;gap:.5rem}
+.chk-item{display:flex;align-items:flex-start;gap:.75rem;padding:.875rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);cursor:pointer;transition:border-color .2s,background .2s}
+.chk-item:hover{border-color:var(--amber);background:var(--amber-light)}
+.chk-item.chkd{border-color:var(--green);background:var(--green-light)}
+.chk-box{width:20px;height:20px;border-radius:4px;border:2px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:.75rem;transition:all .2s}
+.chk-item.chkd .chk-box{background:var(--green);border-color:var(--green);color:#fff}
+.chk-text{font-size:.875rem;line-height:1.4}
+.chk-sub{font-size:.75rem;color:var(--gray);margin-top:.2rem}
+.dg{background:var(--red-light);border:1.5px solid #f8a8a8;border-radius:var(--r2);padding:1.25rem;margin-bottom:1.25rem}
+.dg-title{font-size:.875rem;font-weight:600;color:var(--red);margin-bottom:.625rem}
+.dg-text{font-size:.8125rem;color:#374151;line-height:1.65;margin-bottom:1rem}
+.dg-ack{display:flex;align-items:flex-start;gap:.75rem;cursor:pointer;padding:.75rem;background:rgba(255,255,255,.7);border-radius:var(--r);border:1.5px solid transparent;transition:border-color .2s}
+.dg-ack.chkd{border-color:var(--green);background:var(--green-light)}
+.dg-ack input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:1px;cursor:pointer;accent-color:var(--green)}
+.dg-ack-text{font-size:.8125rem;color:var(--navy);line-height:1.5;font-weight:500}
+.email-section{opacity:.4;pointer-events:none;transition:opacity .3s}
+.email-section.unlocked{opacity:1;pointer-events:auto}
+.field input[type=email]{width:100%;padding:.75rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);font-family:var(--sans);font-size:.9375rem;color:var(--navy);outline:none;transition:border-color .2s}
+.field input[type=email]:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(201,125,10,.12)}
+.consent-row{display:flex;align-items:flex-start;gap:.75rem;padding:1rem;background:var(--gray3);border-radius:var(--r);cursor:pointer;margin-top:.875rem}
+.consent-row input[type=checkbox]{margin-top:2px;accent-color:var(--amber);width:16px;height:16px;cursor:pointer}
+.consent-text{font-size:.8125rem;color:var(--gray);line-height:1.5}
+.consent-text a{color:var(--amber);text-decoration:none}
+.loading{text-align:center;padding:3rem 2rem}
+.spinner{width:44px;height:44px;border:3px solid var(--gray2);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1.25rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-title{font-family:var(--serif);font-size:1.125rem;color:var(--navy);margin-bottom:.5rem}
+.loading-sub{font-size:.875rem;color:var(--gray)}
+#results{display:none;padding:2rem}
+.score-block{display:flex;align-items:center;gap:1.25rem;padding:1.25rem;border-radius:var(--r2);margin-bottom:1.5rem}
+.score-block.critical{background:var(--red-light);border:1.5px solid #f8a8a8}
+.score-block.attention{background:var(--orange-light);border:1.5px solid #f9c49b}
+.score-block.on-track{background:var(--amber-light);border:1.5px solid #f0ca7c}
+.score-block.compliant{background:var(--green-light);border:1.5px solid #90d4b0}
+.score-circle{width:68px;height:68px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.score-block.critical .score-circle{background:var(--red);color:#fff}
+.score-block.attention .score-circle{background:var(--orange);color:#fff}
+.score-block.on-track .score-circle{background:var(--amber);color:var(--navy)}
+.score-block.compliant .score-circle{background:var(--green);color:#fff}
+.score-n{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1}
+.score-pct{font-size:.65rem;font-weight:500}
+.score-status{font-family:var(--serif);font-size:1.125rem;font-weight:600;margin-bottom:.375rem}
+.score-summary{font-size:.875rem;color:#374151;line-height:1.65}
+.rs{margin-bottom:1.5rem}
+.rs-title{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:.75rem}
+.rs-title.urgent{color:var(--red)}.rs-title.required{color:var(--orange)}.rs-title.good{color:var(--green)}
+.ac{padding:.875rem 1rem;border-radius:var(--r);margin-bottom:.5rem;border-left:3px solid transparent}
+.ac.urgent{background:var(--red-light);border-left-color:var(--red)}
+.ac.required{background:var(--orange-light);border-left-color:var(--orange)}
+.ac-title{font-size:.875rem;font-weight:600;color:var(--navy);margin-bottom:.375rem;line-height:1.4}
+.tags{display:flex;flex-wrap:wrap;gap:.375rem;margin-top:.375rem}
+.tag{font-size:.6875rem;font-weight:500;padding:.2rem .5rem;border-radius:50px}
+.tag-dl{background:#fde8e8;color:var(--red)}.tag-con{background:#fff3e0;color:#7c3a00}.tag-cat{background:var(--gray3);color:var(--gray)}
+.good-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.good-list li{font-size:.875rem;display:flex;align-items:flex-start;gap:.5rem;line-height:1.5}
+.good-list li::before{content:'\2713';color:var(--green);font-weight:700;flex-shrink:0}
+.upsell-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.us-card{border-radius:var(--r2);padding:1.25rem}
+.us-card.lite{background:var(--gray3);border:1.5px solid var(--gray2)}
+.us-card.dark{background:var(--navy)}
+.us-name{font-family:var(--serif);font-size:1rem;margin-bottom:.375rem}
+.us-card.dark .us-name{color:#fff}
+.us-price{font-size:1.5rem;font-weight:600;font-family:var(--serif)}
+.us-card.dark .us-price{color:var(--amber)}
+.us-note{font-size:.75rem;color:var(--gray);margin-bottom:.625rem}
+.us-card.dark .us-note{color:rgba(255,255,255,.38)}
+.us-desc{font-size:.8rem;line-height:1.5;color:var(--gray);margin-bottom:.875rem}
+.us-card.dark .us-desc{color:rgba(255,255,255,.55)}
+.us-btn{display:block;padding:.7rem 1rem;border-radius:var(--r);font-size:.8125rem;font-weight:600;text-align:center;border:none;cursor:pointer;font-family:var(--sans);transition:opacity .2s}
+.us-btn:hover{opacity:.85}
+.us-btn.dark-btn{background:var(--navy);color:#fff}
+.us-btn.amber-btn{background:var(--amber);color:var(--navy)}
+.report-disclaimer{background:var(--gray3);border-radius:var(--r);padding:1rem;margin-top:1.25rem;font-size:.75rem;color:var(--gray);line-height:1.6;border-left:3px solid var(--gray2)}
+.guide-nav{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-top:1px solid var(--gray2)}
+.btn-back{background:none;border:none;color:var(--gray);font-family:var(--sans);font-size:.875rem;cursor:pointer;padding:.5rem;border-radius:var(--r);transition:color .2s}
+.btn-back:hover{color:var(--navy)}
+.btn-next{background:var(--navy);color:#fff;font-family:var(--sans);font-size:.9rem;font-weight:600;padding:.75rem 1.75rem;border-radius:var(--r);border:none;cursor:pointer;transition:background .2s,transform .15s}
+.btn-next:hover:not(:disabled){background:var(--navy3);transform:translateY(-1px)}
+.btn-next:disabled{opacity:.35;cursor:not-allowed}
+.btn-next.amber{background:var(--amber);color:var(--navy)}
+.btn-next.amber:hover:not(:disabled){background:#b5700a}
+.tracker{padding:5rem 2.5rem;background:var(--navy);position:relative;overflow:hidden}
+.tracker::before{content:'';position:absolute;right:-200px;top:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,125,10,.07) 0%,transparent 70%);pointer-events:none}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:var(--r2);overflow:hidden;margin-bottom:2.5rem}
+.cert{background:var(--navy2);padding:1.5rem}
+.cert-icon{font-size:1.25rem;margin-bottom:.625rem}
+.cert-name{font-size:.9375rem;font-weight:600;color:#fff;margin-bottom:.25rem}
+.cert-cycle{font-size:.8125rem;color:rgba(255,255,255,.42);margin-bottom:.5rem}
+.cert-risk{font-size:.75rem;color:#f5a5a5;font-weight:500}
+.demo-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:1.5rem;max-width:460px}
+.demo-label{font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1rem}
+.demo-row{display:flex;align-items:center;gap:.875rem;padding:.625rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.demo-row:last-child{border-bottom:none}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot.r{background:#f87171}.dot.a{background:var(--amber)}.dot.g{background:#4ade80}
+.demo-text{font-size:.875rem;color:rgba(255,255,255,.72);flex:1}
+.demo-days{font-size:.75rem;font-weight:600;padding:.2rem .5rem;border-radius:50px}
+.demo-days.urg{background:rgba(248,113,113,.2);color:#f87171}
+.demo-days.wrn{background:rgba(201,125,10,.2);color:#f5d48a}
+.demo-days.ok{background:rgba(74,222,128,.14);color:#4ade80}
+.how{padding:5rem 2.5rem;background:var(--cream)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;margin-top:3rem}
+.flow::before{content:'';position:absolute;top:27px;left:10%;right:10%;height:1px;background:var(--gray2);z-index:0}
+.flow-step{text-align:center;position:relative;z-index:1}
+.flow-num{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .875rem;font-family:var(--serif);font-size:1.125rem;font-weight:600}
+.flow-step:nth-child(-n+2) .flow-num{background:var(--amber-light);color:var(--amber)}
+.flow-step:nth-child(n+3) .flow-num{background:var(--green-light);color:var(--green)}
+.flow-badge{display:inline-block;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:.2rem .5rem;border-radius:50px;margin-bottom:.5rem}
+.flow-step:nth-child(-n+2) .flow-badge{background:var(--amber-light);color:var(--orange)}
+.flow-step:nth-child(n+3) .flow-badge{background:var(--green-light);color:var(--green)}
+.flow-step h4{font-size:.875rem;font-weight:600;color:var(--navy);margin-bottom:.375rem}
+.flow-step p{font-size:.8rem;color:var(--gray);line-height:1.5;padding:0 .25rem}
+.auto-strip{background:#fff;padding:3rem 2.5rem;border-top:1px solid var(--gray2);border-bottom:1px solid var(--gray2)}
+.auto-inner{max-width:760px;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.auto-h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;margin-bottom:.625rem}
+.auto-p{font-size:.9375rem;color:var(--gray);line-height:1.7}
+.auto-list{list-style:none;display:flex;flex-direction:column;gap:.625rem}
+.auto-list li{font-size:.875rem;display:flex;align-items:flex-start;gap:.625rem;line-height:1.4}
+.auto-list li::before{content:'\26A1';flex-shrink:0}
+.disclaimer-sec{background:var(--amber-light);padding:3.5rem 2.5rem;border-top:1px solid #e8d0a0}
+.disclaimer-sec h3{font-family:var(--serif);font-size:1.25rem;font-weight:600;margin-bottom:.875rem}
+.disclaimer-sec p{font-size:.9rem;color:#5c3a00;line-height:1.7;max-width:780px}
+.disclaimer-sec p+p{margin-top:.75rem}
+footer{background:var(--navy);padding:3rem 2.5rem}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.footer-brand{font-family:var(--serif);font-size:1.125rem;color:#fff;margin-bottom:.5rem}
+.footer-brand em{font-style:normal;color:var(--amber)}
+.footer-desc{font-size:.8125rem;color:rgba(255,255,255,.38);max-width:240px;line-height:1.6}
+.footer-links{display:flex;gap:3rem}
+.footer-col h4{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);font-weight:600;margin-bottom:.875rem}
+.footer-col a{display:block;font-size:.8125rem;color:rgba(255,255,255,.48);text-decoration:none;margin-bottom:.5rem;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;flex-wrap:wrap}
+.footer-legal{font-size:.75rem;color:rgba(255,255,255,.26);line-height:1.6;max-width:680px}
+.footer-legal a{color:rgba(255,255,255,.36);text-decoration:none}
+.footer-copy{font-size:.75rem;color:rgba(255,255,255,.2)}
+#ck-banner{position:fixed;bottom:0;left:0;right:0;background:var(--navy2);border-top:1px solid rgba(255,255,255,.1);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;z-index:300;font-size:.8125rem;color:rgba(255,255,255,.68);flex-wrap:wrap}
+#ck-banner a{color:var(--amber)}
+.ck-btns{display:flex;gap:.75rem;flex-shrink:0}
+.ck-accept{background:var(--amber);color:var(--navy);border:none;padding:.5rem 1.25rem;border-radius:var(--r);font-weight:600;font-size:.8125rem;cursor:pointer}
+.ck-decline{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.18);padding:.5rem 1rem;border-radius:var(--r);font-size:.8125rem;cursor:pointer}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(13,27,42,.75);z-index:400;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:var(--r3);padding:2rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
+.modal h3{font-family:var(--serif);font-size:1.25rem;margin-bottom:1rem}
+.modal p{font-size:.875rem;color:var(--gray);line-height:1.6;margin-bottom:.875rem}
+.modal .close-btn{background:var(--navy);color:#fff;border:none;padding:.625rem 1.5rem;border-radius:var(--r);font-family:var(--sans);font-size:.875rem;font-weight:600;cursor:pointer;margin-top:.5rem}
+@media(max-width:900px){
+  nav{padding:.875rem 1.25rem}.nav-links{display:none}
+  .hero,.tracker,.how,.products,.auto-strip,.disclaimer-sec{padding:3.5rem 1.25rem}
+  #guide{padding:3.5rem 1rem}
+  .guide-body{padding:1.5rem}.guide-nav{padding:1.25rem 1.5rem}
+  .hero-stats{gap:1.5rem}
+  .products-grid,.upsell-grid,.auto-inner{grid-template-columns:1fr}
+  .prod-card:first-child{border-right:none;border-bottom:1.5px solid var(--navy)}
+  .certs-grid{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:1fr 1fr;gap:1.5rem}.flow::before{display:none}
+  .footer-top{flex-direction:column}.footer-links{flex-direction:column;gap:1.5rem}.footer-bottom{flex-direction:column}
+  .c2,.c3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="banner">&#9888; <strong>1 May 2026:</strong> Section 21 abolished. Fixed-term tenancies become periodic. <span id="days-left">Check your readiness below.</span></div>
+
+<nav>
+  <a href="/" class="nav-logo">Landlord<em>Ready</em></a>
+  <ul class="nav-links">
+    <li><a href="#guide">Free readiness guide</a></li>
+    <li><a href="#products">Two products</a></li>
+    <li><a href="#tracker">Certificate tracker</a></li>
+  </ul>
+  <a href="#guide" class="nav-cta">Free guide &#8594;</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">&#127468;&#127463; Renters&#8217; Rights Act 2025</div>
+  <h1>Two problems.<br><em>One place.</em></h1>
+  <p class="hero-sub">The free readiness guide tells you what the Renters&#8217; Rights Act 2025 means for your properties. The certificate tracker makes sure you&#8217;re never fined for a lapsed document again.</p>
+  <p class="hero-note">Free readiness guide &#183; &#163;29 one-time document pack &#183; &#163;7/month certificate tracker</p>
+  <div class="hero-actions">
+    <a href="#guide" class="btn-primary">Start free readiness guide &#8594;</a>
+    <a href="#products" class="btn-ghost">See how it works</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-n">2.3M</div><div class="stat-l">UK landlords affected</div></div>
+    <div><div class="stat-n">&#163;7k&#8211;&#163;40k</div><div class="stat-l">fines for non-compliance</div></div>
+    <div><div class="stat-n">1 May</div><div class="stat-l">2026 Phase 1 in force</div></div>
+    <div><div class="stat-n">&#163;6,000</div><div class="stat-l">fine for lapsed Gas Safety Certificate</div></div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="sec-label">What we offer &#8212; and why</div>
+  <h2 class="sec-h2">Two products. Honest about what each one does.</h2>
+  <p class="sec-sub">Most compliance tools blur the line between a one-off check and an ongoing service. We don&#8217;t.</p>
+  <div class="products-grid">
+    <div class="prod-card">
+      <div class="prod-type">One-time purchase &#183; April/May 2026</div>
+      <h3 class="prod-name">Renters&#8217; Rights Act 2025 Readiness Guide + Document Pack</h3>
+      <div class="prod-price">&#163;29</div>
+      <div class="prod-price-note">one-time &#183; instant download &#183; no subscription</div>
+      <p class="prod-desc">The free guide tells you what&#8217;s changing. This gives you the legal document templates to actually action it.</p>
+      <ul class="prod-feats">
+        <li>Updated tenancy agreement template (periodic, post-May 2026)</li>
+        <li>Section 8 possession notice templates (all key grounds)</li>
+        <li>Government Information Sheet &#8212; pre-formatted for your tenants</li>
+        <li>Section 13 rent increase notice template</li>
+        <li>Compliance action checklist &#8212; printable and dated</li>
+      </ul>
+      <div class="rationale"><strong>Why pay once, not monthly?</strong>The Renters&#8217; Rights Act 2025 readiness work is a one-time task. Once you&#8217;ve updated your agreements and sent the Information Sheet, you&#8217;re done.</div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-type">Ongoing subscription &#183; worth it permanently</div>
+      <h3 class="prod-name">Certificate &amp; Document Expiry Tracker</h3>
+      <div class="prod-price" style="color:var(--amber)">&#163;7/month</div>
+      <div class="prod-price-note">or &#163;59/year &#183; cancel any time &#183; no lock-in</div>
+      <p class="prod-desc">Gas Safety Certificates, Electrical Installation Condition Reports, Energy Performance Certificates, House in Multiple Occupation licences &#8212; all expiring on different schedules across multiple properties.</p>
+      <ul class="prod-feats">
+        <li>Track all certificates per property</li>
+        <li>Automated email reminders at 60, 30, and 7 days before expiry</li>
+        <li>Private Rented Sector (PRS) Database registration tracker (opens late 2026)</li>
+        <li>Law change alerts when Phase 2 and Phase 3 land</li>
+        <li>Unlimited properties</li>
+      </ul>
+      <div class="rationale"><strong>Why pay monthly?</strong>Because your Gas Safety Certificate renews every year and missing it means fines up to &#163;6,000. That problem never goes away.</div>
+    </div>
+  </div>
+</section>
+
+<section id="guide">
+  <div class="guide-card">
+    <div class="guide-hdr">
+      <span class="guide-hdr-title" id="guide-title">Free readiness guide</span>
+      <div class="pdots" id="pdots">
+        <div class="pd active"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div>
+      </div>
+    </div>
+    <div class="guide-body">
+      <div class="step active" id="step-1">
+        <div class="step-eye">Step 1 of 4</div>
+        <h2 class="step-title">Your portfolio</h2>
+        <p class="step-sub">Tell us about your properties so we can personalise your readiness summary. Location doesn&#8217;t change your compliance obligations, but helps us tailor your summary and understand your portfolio spread. <a href="guide-questions-example.html" target="_blank" style="color:var(--amber);font-weight:500;text-decoration:none">See an example &#8594;</a></p>
+        <div class="field">
+          <label>How many rental properties do you own?</label>
+          <div class="cgrid c2">
+            <button class="cb" data-f="propertyCount" data-v="1"><span class="cb-ic"></span>1 property</button>
+            <button class="cb" data-f="propertyCount" data-v="2-4"><span class="cb-ic"></span>2&#8211;4 properties</button>
+            <button class="cb" data-f="propertyCount" data-v="5-9"><span class="cb-ic"></span>5&#8211;9 properties</button>
+            <button class="cb" data-f="propertyCount" data-v="10+"><span class="cb-ic"></span>10+ properties</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Type of tenancy <em style="font-weight:300;color:var(--gray)">(select all that apply)</em></label>
+          <div class="cgrid c2">
+            <button class="cb multi" data-f="propertyTypes" data-v="Standard single-let"><span class="cb-ic"></span>Standard single-let</button>
+            <button class="cb multi" data-f="propertyTypes" data-v="HMO"><span class="cb-ic"></span>House in Multiple Occupation (HMO)</button>
+            <button class="cb multi" data-f="propertyTypes" data-v="Student accommodation"><span class="cb-ic"></span>Student accommodation</button>
+            <button class="cb multi" data-f="propertyTypes" data-v="Short-term / holiday let"><span class="cb-ic"></span>Short-term / holiday let</button>
+            <button class="cb multi" data-f="propertyTypes" data-v="Company let"><span class="cb-ic"></span>Company let</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Location</label>
+          <div class="cgrid c3">
+            <button class="cb" data-f="location" data-v="London"><span class="cb-ic"></span>London</button>
+            <button class="cb" data-f="location" data-v="South East"><span class="cb-ic"></span>South East</button>
+            <button class="cb" data-f="location" data-v="South West"><span class="cb-ic"></span>South West</button>
+            <button class="cb" data-f="location" data-v="Midlands"><span class="cb-ic"></span>Midlands</button>
+            <button class="cb" data-f="location" data-v="North England"><span class="cb-ic"></span>North England</button>
+            <button class="cb" data-f="location" data-v="Other / Multiple"><span class="cb-ic"></span>Other / Multiple</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-2">
+        <div class="step-eye">Step 2 of 4</div>
+        <h2 class="step-title">Your tenancy setup</h2>
+        <p class="step-sub">These answers determine which parts of the Act affect you most urgently.</p>
+        <div class="field">
+          <label>Do you currently have fixed-term Assured Shorthold Tenancies (ASTs) &#8212; contracts with an end date?</label>
+          <div class="cgrid c2">
+            <button class="cb" data-f="hasAST" data-v="Yes some"><span class="cb-ic"></span>Yes, some of my tenancies</button>
+            <button class="cb" data-f="hasAST" data-v="Yes all"><span class="cb-ic"></span>Yes, all are fixed-term</button>
+            <button class="cb" data-f="hasAST" data-v="No"><span class="cb-ic"></span>No, all periodic already</button>
+            <button class="cb" data-f="hasAST" data-v="Unsure"><span class="cb-ic"></span>Not sure</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>How do you currently increase rent?</label>
+          <div class="cgrid c2">
+            <button class="cb" data-f="rentIncrease" data-v="Informally"><span class="cb-ic"></span>Informally / verbally</button>
+            <button class="cb" data-f="rentIncrease" data-v="Formal notice"><span class="cb-ic"></span>Formal written notice</button>
+            <button class="cb" data-f="rentIncrease" data-v="Via agent"><span class="cb-ic"></span>Via letting agent</button>
+            <button class="cb" data-f="rentIncrease" data-v="Rarely"><span class="cb-ic"></span>Rarely or never</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Do you collect more than 1 month&#8217;s rent in advance?</label>
+          <div class="cgrid c2">
+            <button class="cb" data-f="rentAdvance" data-v="Yes 2+ months"><span class="cb-ic"></span>Yes, 2+ months upfront</button>
+            <button class="cb" data-f="rentAdvance" data-v="Sometimes"><span class="cb-ic"></span>Sometimes</button>
+            <button class="cb" data-f="rentAdvance" data-v="No 1 month"><span class="cb-ic"></span>No, 1 month only</button>
+            <button class="cb" data-f="rentAdvance" data-v="None"><span class="cb-ic"></span>No advance rent</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Have you served or are you planning to serve a Section 21 notice?</label>
+          <div class="cgrid c2">
+            <button class="cb" data-f="s21" data-v="Recently served"><span class="cb-ic"></span>Served in last 6 months</button>
+            <button class="cb" data-f="s21" data-v="Planning to"><span class="cb-ic"></span>Planning to before May 2026</button>
+            <button class="cb" data-f="s21" data-v="No"><span class="cb-ic"></span>No</button>
+            <button class="cb" data-f="s21" data-v="Not applicable"><span class="cb-ic"></span>Not applicable</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step" id="step-3">
+        <div class="step-eye">Step 3 of 4</div>
+        <h2 class="step-title">Existing compliance</h2>
+        <p class="step-sub">Tick what you have confirmed and up to date. Be accurate &#8212; the more honest you are, the more useful your summary.</p>
+        <div class="chk-list">
+          <label class="chk-item" data-v="Written tenancy agreement"><span class="chk-box"></span><span class="chk-text">Written tenancy agreement for all properties<span class="chk-sub">All tenants have a signed agreement</span></span></label>
+          <label class="chk-item" data-v="Valid Gas Safety Certificate"><span class="chk-box"></span><span class="chk-text">Valid Gas Safety Certificate (annual)<span class="chk-sub">Provided before move-in and within 28 days of each annual check</span></span></label>
+          <label class="chk-item" data-v="Valid EPC rated E or above"><span class="chk-box"></span><span class="chk-text">Valid Energy Performance Certificate (EPC) rated E or above<span class="chk-sub">Required before marketing any property to let</span></span></label>
+          <label class="chk-item" data-v="Smoke alarms on every floor"><span class="chk-box"></span><span class="chk-text">Smoke alarms tested and working on every floor<span class="chk-sub">Must be confirmed working on day 1 of every tenancy</span></span></label>
+          <label class="chk-item" data-v="Carbon monoxide detectors where required"><span class="chk-box"></span><span class="chk-text">Carbon monoxide detectors where required<span class="chk-sub">Mandatory where solid fuel appliances are present</span></span></label>
+          <label class="chk-item" data-v="Deposit protected within 30 days"><span class="chk-box"></span><span class="chk-text">Deposit protected in approved scheme within 30 days<span class="chk-sub">Plus prescribed information provided to tenant</span></span></label>
+          <label class="chk-item" data-v="How to Rent guide provided"><span class="chk-box"></span><span class="chk-text">Current &#8216;How to Rent&#8217; guide provided at tenancy start<span class="chk-sub">Must be the latest version each time</span></span></label>
+          <label class="chk-item" data-v="EICR within last 5 years"><span class="chk-box"></span><span class="chk-text">Electrical Installation Condition Report (EICR) within the last 5 years<span class="chk-sub">Copy must be provided to all tenants</span></span></label>
+        </div>
+      </div>
+
+      <div class="step" id="step-4">
+        <div class="step-eye">Step 4 of 4</div>
+        <h2 class="step-title">Before we generate your summary</h2>
+        <p class="step-sub">Please read and confirm the following. This matters.</p>
+        <div class="dg">
+          <div class="dg-title">&#9888; This is general information &#8212; not legal advice</div>
+          <div class="dg-text">LandlordReady is an information tool, not a legal service. We are not solicitors. Your readiness summary is generated by AI based on the Renters&#8217; Rights Act 2025 as understood at March 2026. It may not capture every nuance of your situation, local authority rules, or later regulatory changes.<br><br>You must verify anything you act on against official government sources at <strong>gov.uk</strong>, and consult a qualified solicitor before making legal decisions about possession, eviction, or tenancy changes.</div>
+          <label class="dg-ack" id="dg-label">
+            <input type="checkbox" id="dg-check">
+            <span class="dg-ack-text">I understand this is general information only. I will not rely on it as legal advice and will consult a solicitor for decisions specific to my situation.</span>
+          </label>
+        </div>
+        <div class="email-section" id="email-section">
+          <div class="field">
+            <label for="email-input">Your email &#8212; we&#8217;ll send you the full summary</label>
+            <input type="email" id="email-input" placeholder="you@example.co.uk">
+          </div>
+          <label class="consent-row">
+            <input type="checkbox" id="consent-check">
+            <span class="consent-text">I agree to receive my readiness summary and UK rental law updates from LandlordReady. I can unsubscribe at any time. <a href="#" onclick="showModal('privacy-modal',event)">Privacy Policy</a>. We never share your data with third parties.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="step" id="step-loading">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p class="loading-title">Generating your readiness summary&#8230;</p>
+          <p class="loading-sub" id="loading-msg">Reviewing Renters&#8217; Rights Act 2025 for your portfolio</p>
+        </div>
+      </div>
+
+    </div>
+    <div id="results"></div>
+    <div class="guide-nav" id="guide-nav">
+      <button class="btn-back" id="btn-back" onclick="prevStep()" style="visibility:hidden">&#8592; Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextStep()" disabled>Continue &#8594;</button>
+    </div>
+  </div>
+</section>
+
+<section class="tracker" id="tracker">
+  <div class="sec-label">Certificate tracker &#8212; &#163;7/month</div>
+  <h2 style="font-family:var(--serif);font-size:clamp(1.75rem,3.5vw,2.5rem);font-weight:600;color:#fff;letter-spacing:-.02em;line-height:1.15;max-width:600px;margin-bottom:1rem">The problem that doesn&#8217;t go away after May 2026</h2>
+  <p style="font-size:1rem;color:rgba(255,255,255,.5);max-width:520px;line-height:1.7;margin-bottom:3rem">Once you&#8217;ve handled the Renters&#8217; Rights Act 2025 changes, the ongoing risk is certificates lapsing across multiple properties on different schedules.</p>
+  <div class="certs-grid">
+    <div class="cert"><div class="cert-icon">&#128293;</div><div class="cert-name">Gas Safety Certificate</div><div class="cert-cycle">Every 12 months</div><div class="cert-risk">Fine up to &#163;6,000 if lapsed</div></div>
+    <div class="cert"><div class="cert-icon">&#9889;</div><div class="cert-name">Electrical Installation Condition Report (EICR)</div><div class="cert-cycle">Every 5 years</div><div class="cert-risk">Civil penalty; cannot let legally</div></div>
+    <div class="cert"><div class="cert-icon">&#127968;</div><div class="cert-name">Energy Performance Certificate (EPC)</div><div class="cert-cycle">Every 10 years (C rating by 2030)</div><div class="cert-risk">Cannot market without valid certificate</div></div>
+    <div class="cert"><div class="cert-icon">&#128203;</div><div class="cert-name">House in Multiple Occupation (HMO) Licence</div><div class="cert-cycle">Every 5 years</div><div class="cert-risk">Criminal offence to let without licence</div></div>
+    <div class="cert"><div class="cert-icon">&#128449;</div><div class="cert-name">Private Rented Sector (PRS) Database Registration</div><div class="cert-cycle">Annual fee &#8212; opening late 2026</div><div class="cert-risk">Cannot use key possession grounds without it</div></div>
+    <div class="cert"><div class="cert-icon">&#128274;</div><div class="cert-name">Smoke &amp; Carbon Monoxide Alarm Tests</div><div class="cert-cycle">Each new tenancy</div><div class="cert-risk">Penalty notice; liability if incident occurs</div></div>
+  </div>
+  <div class="demo-box">
+    <div class="demo-label">Your automated reminders &#8212; example</div>
+    <div class="demo-row"><div class="dot r"></div><div class="demo-text">Gas Safety Certificate &#8212; 14 Maple Road, Essex</div><div class="demo-days urg">7 days</div></div>
+    <div class="demo-row"><div class="dot a"></div><div class="demo-text">Electrical Installation Condition Report &#8212; Flat 3, Church Lane, London</div><div class="demo-days wrn">31 days</div></div>
+    <div class="demo-row"><div class="dot a"></div><div class="demo-text">House in Multiple Occupation Licence &#8212; 22 Station Road, Kent</div><div class="demo-days wrn">58 days</div></div>
+    <div class="demo-row"><div class="dot g"></div><div class="demo-text">Energy Performance Certificate &#8212; 7 Oak Avenue, Essex</div><div class="demo-days ok">214 days</div></div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="sec-label">How it works</div>
+  <h2 class="sec-h2">Free guide first. Decide what you need after.</h2>
+  <p class="sec-sub" style="margin-bottom:0">No account needed for the free guide. You get your summary first &#8212; then you choose what&#8217;s useful.</p>
+  <div class="flow">
+    <div class="flow-step"><div class="flow-badge">Free</div><div class="flow-num">1</div><h4>4-question guide</h4><p>Portfolio, tenancy type, existing compliance. 2 minutes.</p></div>
+    <div class="flow-step"><div class="flow-badge">Free</div><div class="flow-num">2</div><h4>AI readiness summary</h4><p>Personalised to your situation. Emailed instantly.</p></div>
+    <div class="flow-step"><div class="flow-badge">&#163;29 once</div><div class="flow-num">3</div><h4>Document pack</h4><p>Updated agreements, Section 8 notices, Information Sheet. One purchase.</p></div>
+    <div class="flow-step"><div class="flow-badge">&#163;7/month</div><div class="flow-num">4</div><h4>Add certificates</h4><p>Enter your properties and expiry dates. Tracker monitors them automatically.</p></div>
+    <div class="flow-step"><div class="flow-badge">Automated</div><div class="flow-num">5</div><h4>Reminders fire</h4><p>60, 30, and 7 days before expiry &#8212; every certificate, every property.</p></div>
+  </div>
+</section>
+
+<div class="auto-strip">
+  <div class="auto-inner">
+    <div>
+      <h3 class="auto-h3">Almost everything runs automatically</h3>
+      <p class="auto-p">After you enter your properties and certificate dates, the system handles the rest. Reminders fire on schedule, law change alerts go out when Phase 2 lands, and Stripe manages billing and cancellations.</p>
+    </div>
+    <ul class="auto-list">
+      <li>Report generated and emailed instantly after guide</li>
+      <li>Submission automatically logged to your Notion database</li>
+      <li>Certificate reminders fire at 60, 30 and 7 days</li>
+      <li>Law change alerts sent automatically</li>
+      <li>Stripe handles billing, renewals and cancellations</li>
+    </ul>
+  </div>
+</div>
+
+<div class="disclaimer-sec">
+  <h3>An honest note about what this tool is &#8212; and isn&#8217;t</h3>
+  <p>The free readiness guide and the paid document pack are information tools, not legal advice. The AI-generated summary reflects our understanding of the Renters&#8217; Rights Act 2025 as of March 2026. While we have taken care to be accurate, laws change and individual circumstances vary.</p>
+  <p>Before taking any legal action &#8212; particularly around possession, eviction, or significant tenancy changes &#8212; always verify against <strong>gov.uk</strong> and consult a qualified solicitor. LandlordReady accepts no liability for decisions made in reliance on this tool.</p>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Landlord<em>Ready</em></div>
+      <p class="footer-desc">Free readiness guide and certificate tracker for UK private landlords. Built around the Renters&#8217; Rights Act 2025.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#guide">Free readiness guide</a>
+        <a href="#products">Document pack &#8212; &#163;29</a>
+        <a href="#tracker">Certificate tracker &#8212; &#163;7/mo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#" onclick="showModal('privacy-modal',event)">Privacy policy</a>
+        <a href="#" onclick="showModal('terms-modal',event)">Terms of use</a>
+        <a href="#" onclick="showModal('disc-modal',event)">Disclaimer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Official sources</h4>
+        <a href="https://www.legislation.gov.uk/ukpga/2025/17" target="_blank" rel="noopener">Renters&#8217; Rights Act 2025</a>
+        <a href="https://www.gov.uk/government/publications/renters-rights-act-2025-implementation-roadmap" target="_blank" rel="noopener">Implementation roadmap</a>
+        <a href="https://www.nrla.org.uk" target="_blank" rel="noopener">NRLA</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-legal"><strong style="color:rgba(255,255,255,.38)">Disclaimer:</strong> General information only &#8212; not legal advice. Always verify at gov.uk and consult a qualified solicitor. Registered with the Information Commissioner&#8217;s Office. <a href="#" onclick="showModal('privacy-modal',event)">Privacy Policy</a> &#183; <a href="#" onclick="showModal('terms-modal',event)">Terms</a></p>
+    <p class="footer-copy">&#169; 2026 LandlordReady</p>
+  </div>
+</footer>
+
+<div id="ck-banner"><span>Essential cookies only &#8212; no tracking or advertising. <a href="#" onclick="showModal('privacy-modal',event)">Privacy Policy</a></span><div class="ck-btns"><button class="ck-accept" onclick="closeCookies()">Accept</button><button class="ck-decline" onclick="closeCookies()">Decline</button></div></div>
+
+<div class="modal-overlay" id="privacy-modal"><div class="modal"><h3>Privacy Policy</h3><p><strong>Updated March 2026.</strong> We collect your email address and questionnaire answers to send your readiness summary and, with consent, law update emails. Legal basis: your explicit consent (UK General Data Protection Regulation Art. 6(1)(a)). We never sell or share your data. Your answers and email are processed server-side to generate your report and log it to our internal system. Request deletion by contacting us via the website. Registered with the Information Commissioner&#8217;s Office.</p><button class="close-btn" onclick="closeModal('privacy-modal')">Close</button></div></div>
+<div class="modal-overlay" id="terms-modal"><div class="modal"><h3>Terms of Use</h3><p>LandlordReady provides general information only &#8212; not legal advice. We are not solicitors. Always verify with gov.uk and consult a qualified solicitor before making legal decisions. Information believed accurate as of March 2026. LandlordReady accepts no liability for decisions made in reliance on this tool.</p><button class="close-btn" onclick="closeModal('terms-modal')">Close</button></div></div>
+<div class="modal-overlay" id="disc-modal"><div class="modal"><h3>Disclaimer</h3><p>This tool is an information resource only. It does not constitute legal advice. The AI-generated readiness summary reflects our understanding of the Renters&#8217; Rights Act 2025 as of March 2026. Laws and regulations change &#8212; always verify with official sources and engage a solicitor for your specific situation. LandlordReady accepts no liability for any loss arising from use of this service.</p><button class="close-btn" onclick="closeModal('disc-modal')">Close</button></div></div>
+
+<div class="modal-overlay" id="waitlist-modal">
+  <div class="modal">
+    <h3 id="waitlist-title">Join the waitlist</h3>
+    <p id="waitlist-desc">Be the first to know when this launches.</p>
+    <div style="margin:1.25rem 0">
+      <input type="email" id="waitlist-email" placeholder="your@email.co.uk" style="width:100%;padding:.75rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);font-family:var(--sans);font-size:.9375rem;outline:none">
+      <div id="waitlist-error" style="font-size:.75rem;color:var(--red);margin-top:.375rem;display:none">Please enter a valid email address.</div>
+    </div>
+    <button class="close-btn" onclick="submitWaitlist()" style="background:var(--amber);color:var(--navy);margin-right:.75rem">Join waitlist</button>
+    <button class="close-btn" onclick="closeModal('waitlist-modal')" style="background:var(--gray3);color:var(--navy)">Cancel</button>
+    <div id="waitlist-success" style="display:none;margin-top:1rem;padding:.875rem;background:var(--green-light);border-radius:var(--r);font-size:.875rem;color:var(--green);border-left:3px solid var(--green)">&#10003; You&#8217;re on the list. We&#8217;ll email you at launch.</div>
+  </div>
+</div>
+
+<script>
+(function() {
+'use strict';
+
+var CONFIG = { PROXY_URL: '/api/report', DEMO_MODE: false };
+
+var S = {
+  step: 1, total: 4,
+  data: { propertyCount:'', propertyTypes:[], location:'', hasAST:'', rentIncrease:'', rentAdvance:'', s21:'', checks:[], email:'' }
+};
+
+(function() {
+  var d = Math.ceil((new Date('2026-05-01') - new Date()) / 86400000);
+  var el = document.getElementById('days-left');
+  if (el) el.textContent = d > 0 ? d + ' days to the Phase 1 deadline.' : 'Phase 1 is now in force.';
+})();
+
+document.querySelectorAll('.cb').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var f = btn.dataset.f, v = btn.dataset.v, multi = btn.classList.contains('multi');
+    if (multi) {
+      btn.classList.toggle('sel');
+      btn.querySelector('.cb-ic').textContent = btn.classList.contains('sel') ? '\u2713' : '';
+      if (btn.classList.contains('sel')) {
+        if (S.data.propertyTypes.indexOf(v) === -1) S.data.propertyTypes.push(v);
+      } else {
+        S.data.propertyTypes = S.data.propertyTypes.filter(function(x) { return x !== v; });
+      }
+    } else {
+      document.querySelectorAll('.cb[data-f="' + f + '"]').forEach(function(b) {
+        b.classList.remove('sel'); b.querySelector('.cb-ic').textContent = '';
+      });
+      btn.classList.add('sel'); btn.querySelector('.cb-ic').textContent = '\u2713'; S.data[f] = v;
+    }
+    refreshBtn();
+  });
+});
+
+document.querySelectorAll('.chk-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    item.classList.toggle('chkd');
+    var box = item.querySelector('.chk-box');
+    if (box) box.textContent = item.classList.contains('chkd') ? '\u2713' : '';
+    var v = item.dataset.v;
+    if (item.classList.contains('chkd')) {
+      if (S.data.checks.indexOf(v) === -1) S.data.checks.push(v);
+    } else {
+      S.data.checks = S.data.checks.filter(function(x) { return x !== v; });
+    }
+  });
+});
+
+document.getElementById('dg-label').addEventListener('click', function(e) {
+  if (e.target.tagName === 'A') return;
+  var cb = document.getElementById('dg-check');
+  cb.checked = !cb.checked;
+  document.getElementById('dg-label').classList.toggle('chkd', cb.checked);
+  var es = document.getElementById('email-section');
+  cb.checked ? es.classList.add('unlocked') : es.classList.remove('unlocked');
+  refreshBtn();
+});
+
+document.getElementById('email-input').addEventListener('input', refreshBtn);
+document.getElementById('consent-check').addEventListener('change', refreshBtn);
+
+function validate(s) {
+  if (s === 1) return !!(S.data.propertyCount && S.data.location && S.data.propertyTypes.length);
+  if (s === 2) return !!(S.data.hasAST && S.data.rentIncrease && S.data.rentAdvance && S.data.s21);
+  if (s === 3) return true;
+  if (s === 4) {
+    var e = document.getElementById('email-input').value;
+    return !!(document.getElementById('dg-check').checked && document.getElementById('consent-check').checked && e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+  }
+  return true;
+}
+
+function refreshBtn() { document.getElementById('btn-next').disabled = !validate(S.step); }
+
+function updateUI() {
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  var a = document.getElementById('step-' + S.step); if (a) a.classList.add('active');
+  document.querySelectorAll('.pd').forEach(function(d, i) {
+    d.classList.remove('active','done');
+    if (i + 1 === S.step) d.classList.add('active');
+    else if (i + 1 < S.step) d.classList.add('done');
+  });
+  document.getElementById('btn-back').style.visibility = S.step > 1 ? 'visible' : 'hidden';
+  var btn = document.getElementById('btn-next');
+  if (S.step === S.total) { btn.textContent = 'Generate my summary \u2192'; btn.className = 'btn-next amber'; }
+  else { btn.textContent = 'Continue \u2192'; btn.className = 'btn-next'; }
+  refreshBtn();
+}
+
+window.nextStep = function() {
+  if (!validate(S.step)) return;
+  if (S.step === S.total) { S.data.email = document.getElementById('email-input').value; generate(); return; }
+  S.step++; updateUI();
+};
+
+window.prevStep = function() { if (S.step > 1) { S.step--; updateUI(); } };
+
+function generate() {
+  document.getElementById('guide-nav').style.display = 'none';
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('step-loading').classList.add('active');
+  var msgs = ["Reviewing Renters' Rights Act 2025 for your portfolio", 'Analysing your tenancy situation\u2026', 'Checking compliance gaps\u2026', 'Preparing your personalised action plan\u2026'];
+  var mi = 0, mel = document.getElementById('loading-msg');
+  var iv = setInterval(function() { mi = (mi + 1) % msgs.length; mel.textContent = msgs[mi]; }, 1300);
+
+  function done(result) {
+    clearInterval(iv);
+    var r = result.report;
+    if (result._demo) r._demo = true;
+    renderReport(r);
+  }
+
+  if (CONFIG.DEMO_MODE || !CONFIG.PROXY_URL) {
+    setTimeout(function() { done({ report: demoReport() }); }, 3000);
+    return;
+  }
+
+  // Send email inside formData — the function logs it to Notion server-side
+  var payload = { formData: Object.assign({}, S.data, { email: S.data.email }) };
+
+  fetch(CONFIG.PROXY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) {
+    return res.json().then(function(d) {
+      if (!res.ok) {
+        if (d.setup_required) return { _demo: true, report: demoReport() };
+        throw new Error('Status ' + res.status);
+      }
+      return { report: d.report };
+    });
+  })
+  .then(done)
+  .catch(function(err) {
+    console.warn('Falling back to demo:', err.message);
+    setTimeout(function() { done({ _demo: true, report: demoReport() }); }, 1000);
+  });
+}
+
+function renderReport(r) {
+  document.getElementById('step-loading').classList.remove('active');
+  var scMap = { 'Critical':'critical', 'Needs Attention':'attention', 'On Track':'on-track', 'Compliant':'compliant' };
+  var sc = scMap[r.status] || 'attention';
+  var demoBadge = r._demo ? '<div style="background:#f5e9cc;border-left:3px solid #c97d0a;border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.8125rem;color:#7c4a00"><strong>Demo mode:</strong> Add your CLAUDE_API_KEY in Netlify \u2192 Site configuration \u2192 Environment variables, then trigger a redeploy to generate real AI reports.</div>' : '';
+  var html = '<div style="padding:2rem">' + demoBadge;
+  html += '<div class="score-block ' + sc + '"><div class="score-circle"><span class="score-n">' + r.compliance_score + '</span><span class="score-pct">/ 100</span></div><div><div class="score-status">' + r.status + '</div><div class="score-summary">' + r.summary + '</div></div></div>';
+  if (r.urgent_actions && r.urgent_actions.length) {
+    html += '<div class="rs"><div class="rs-title urgent">\uD83D\uDD34 Urgent &mdash; action required now (' + r.urgent_actions.length + ')</div>';
+    r.urgent_actions.forEach(function(a) { html += '<div class="ac urgent"><div class="ac-title">' + a.action + '</div><div class="tags"><span class="tag tag-dl">\u23F0 ' + a.deadline + '</span><span class="tag tag-con">\u26A0 ' + a.consequence + '</span><span class="tag tag-cat">' + a.category + '</span></div></div>'; });
+    html += '</div>';
+  }
+  if (r.required_actions && r.required_actions.length) {
+    html += '<div class="rs"><div class="rs-title required">\uD83D\uDFE0 Required &mdash; do these soon</div>';
+    r.required_actions.forEach(function(a) { html += '<div class="ac required"><div class="ac-title">' + a.action + '</div><div class="tags"><span class="tag tag-dl">\uD83D\uDCC5 ' + a.timeline + '</span><span class="tag tag-cat">' + a.category + '</span></div></div>'; });
+    html += '</div>';
+  }
+  if (r.positive_notes && r.positive_notes.length) {
+    html += '<div class="rs"><div class="rs-title good">\u2705 What you have right</div><ul class="good-list">';
+    r.positive_notes.forEach(function(n) { html += '<li>' + n + '</li>'; });
+    html += '</ul></div>';
+  }
+  html += '<div class="upsell-grid"><div class="us-card lite"><h4 class="us-name">Get the document pack</h4><div class="us-price">&#163;29</div><div class="us-note">one-time &middot; instant download</div><p class="us-desc">Updated tenancy agreement, Section 8 notices, Government Information Sheet, and Section 13 rent increase notice.</p><button class="us-btn dark-btn" onclick="openWaitlist(\'pack\')">Get document pack &rarr;</button></div><div class="us-card dark"><h4 class="us-name">Track your certificates</h4><div class="us-price" style="color:var(--amber)">&#163;7/mo</div><div class="us-note" style="color:rgba(255,255,255,.38)">or &#163;59/year &middot; cancel anytime</div><p class="us-desc" style="color:rgba(255,255,255,.55)">Automated reminders before your Gas Safety Certificate, Electrical Installation Condition Report, Energy Performance Certificate and House in Multiple Occupation licence lapse.</p><button class="us-btn amber-btn" onclick="openWaitlist(\'tracker\')">Start tracking &rarr;</button></div></div>';
+  html += '<div class="report-disclaimer"><strong>Reminder:</strong> ' + (r.disclaimer || 'This summary provides general information only &mdash; not legal advice. Always verify with gov.uk and consult a qualified solicitor.') + '</div></div>';
+  var el = document.getElementById('results');
+  el.innerHTML = html; el.style.display = 'block';
+  document.getElementById('guide-title').textContent = 'Your readiness summary';
+  document.getElementById('pdots').style.display = 'none';
+  el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function demoReport() {
+  var hasAST = S.data.hasAST && S.data.hasAST.indexOf('Yes') !== -1;
+  var hasCompanyLet = Array.isArray(S.data.propertyTypes) && S.data.propertyTypes.indexOf('Company let') !== -1;
+  var rentIssue = S.data.rentAdvance === 'Yes 2+ months' || S.data.rentAdvance === 'Sometimes';
+  var n = S.data.checks.length;
+  var score = n >= 6 ? 65 : n >= 3 ? 43 : 27;
+  var urgent = hasCompanyLet
+    ? [{ action:'Company lets are not Assured Shorthold Tenancies and are largely unaffected by Phase 1 of the Renters\u2019 Rights Act 2025. However you should review Phase 2 Private Rented Sector (PRS) Database requirements and ensure any residential tenancies in your portfolio are reviewed separately.', deadline:'Late 2026', consequence:'Private Rented Sector (PRS) Database registration required', category:'Registration & Licensing' }]
+    : [{ action:'Send the Government Information Sheet to ALL existing tenants before 31 May 2026', deadline:'31 May 2026', consequence:'Civil penalty up to \u00a37,000 per tenancy', category:'Tenancy Documents' }];
+  if (!hasCompanyLet && hasAST) urgent.push({ action:'Update your tenancy agreement template \u2014 remove all fixed-term and Section 21 clauses before any new tenancy from 1 May 2026', deadline:'Before 1 May 2026', consequence:'Invalid documents; difficulty recovering possession', category:'Tenancy Documents' });
+  if (!hasCompanyLet && rentIssue) urgent.push({ action:'Stop collecting more than 1 month\'s rent in advance on all new tenancies from 1 May 2026', deadline:'1 May 2026', consequence:'Excess must be refunded; civil penalty up to \u00a37,000', category:'Rent & Deposits' });
+  return {
+    compliance_score: score,
+    status: score >= 65 ? 'On Track' : score >= 40 ? 'Needs Attention' : 'Critical',
+    summary: 'Based on your ' + (S.data.propertyCount || '1') + ' ' + (S.data.propertyTypes.join('/') || 'property') + ' in ' + (S.data.location || 'England') + ', you have ' + Math.max(1, 4 - n) + ' significant areas to address before the 1 May 2026 deadline.' + (hasAST ? ' Your fixed-term Assured Shorthold Tenancies convert automatically on 1 May.' : '') + (rentIssue ? ' Collecting advance rent above 1 month is banned from 1 May on all new tenancies.' : ''),
+    urgent_actions: urgent,
+    required_actions: [
+      { action:'Learn the Section 8 possession grounds \u2014 your only legal route to recover a property after 1 May 2026. Section 21 is abolished.', timeline:'Before 1 May 2026', category:'Possession & Eviction' },
+      { action:'Switch to formal Section 13 notice process for rent increases. Once per year, minimum 2 months notice, using prescribed Form 4A.', timeline:'From 1 May 2026', category:'Rent & Deposits' },
+      { action:'Register on the Private Rented Sector (PRS) Database when it opens in late 2026.', timeline:'Late 2026', category:'Registration & Licensing' }
+    ],
+    positive_notes: n > 0 ? S.data.checks.slice(0,3).map(function(c){return c+' \u2014 confirmed and current';}) : ['Running this readiness guide puts you ahead of most landlords who have not yet started preparing'],
+    disclaimer: 'This summary provides general information only and does not constitute legal advice. LandlordReady is not a solicitor. Always verify with official UK government sources at gov.uk and consult a qualified solicitor for decisions specific to your situation.'
+  };
+}
+
+window.openWaitlist = function(product) {
+  var titles = { pack:'Join the waitlist \u2014 Document Pack', tracker:'Join the waitlist \u2014 Certificate Tracker' };
+  var descs = { pack:'The \u00a329 document pack is nearly ready. Enter your email and we\'ll notify you at launch.', tracker:'The certificate tracker (\u00a37/month) is nearly ready. Enter your email and we\'ll notify you at launch.' };
+  document.getElementById('waitlist-title').textContent = titles[product] || 'Join the waitlist';
+  document.getElementById('waitlist-desc').textContent = descs[product] || 'Enter your email below.';
+  document.getElementById('waitlist-email').value = S.data.email || '';
+  document.getElementById('waitlist-error').style.display = 'none';
+  document.getElementById('waitlist-success').style.display = 'none';
+  document.getElementById('waitlist-email').disabled = false;
+  showModal('waitlist-modal');
+};
+
+window.submitWaitlist = function() {
+  var email = document.getElementById('waitlist-email').value.trim();
+  var errEl = document.getElementById('waitlist-error');
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.style.display = 'block'; return; }
+  errEl.style.display = 'none';
+  document.getElementById('waitlist-success').style.display = 'block';
+  document.getElementById('waitlist-email').disabled = true;
+};
+
+window.closeCookies = function() {
+  document.getElementById('ck-banner').style.display = 'none';
+  try { localStorage.setItem('lr_ck','1'); } catch(e) {}
+};
+try { if (localStorage.getItem('lr_ck')) document.getElementById('ck-banner').style.display = 'none'; } catch(e) {}
+
+window.showModal = function(id, e) { if (e) e.preventDefault(); document.getElementById(id).classList.add('show'); };
+window.closeModal = function(id) { document.getElementById(id).classList.remove('show'); };
+document.querySelectorAll('.modal-overlay').forEach(function(o) {
+  o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('show'); });
+});
+
+updateUI();
+})();
+</script>
+</body>
+</html>

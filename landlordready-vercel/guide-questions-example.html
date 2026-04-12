@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide Questions — LandlordReady Example</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b2a;--cream:#f8f6f1;
+  --amber:#c97d0a;--amber-light:#f5e9cc;
+  --green:#1a6b42;--green-light:#e3f5ec;
+  --gray:#6b7280;--gray2:#e5e7eb;--gray3:#f3f4f6;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --r:8px;--r2:12px;
+}
+body{font-family:var(--sans);background:var(--gray3);color:var(--navy);padding:2rem 1rem}
+.page{max-width:900px;margin:0 auto}
+
+.page-title{font-family:var(--serif);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:600;letter-spacing:-.02em;margin-bottom:.5rem}
+.page-sub{font-size:1rem;color:var(--gray);margin-bottom:3rem;line-height:1.7}
+
+.steps-overview{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem}
+.step-pill{background:#fff;border:1.5px solid var(--gray2);border-radius:var(--r2);padding:1rem;text-align:center}
+.step-pill.current{border-color:var(--amber);background:var(--amber-light)}
+.sp-num{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--amber);line-height:1}
+.sp-label{font-size:.8125rem;color:var(--gray);margin-top:.25rem;line-height:1.3}
+.step-pill.current .sp-label{color:var(--navy);font-weight:500}
+
+.step-block{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:2rem;box-shadow:0 2px 20px rgba(13,27,42,.07)}
+.step-hdr{background:var(--navy);padding:1.25rem 1.75rem;display:flex;align-items:center;gap:1rem}
+.step-hdr-num{font-family:var(--serif);font-size:2rem;font-weight:600;color:rgba(255,255,255,.18);line-height:1;flex-shrink:0}
+.step-hdr-text{}
+.step-hdr-eye{font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:.25rem}
+.step-hdr-title{font-family:var(--serif);font-size:1.125rem;color:#fff;font-weight:600}
+.step-hdr-sub{font-size:.8125rem;color:rgba(255,255,255,.5);margin-top:.25rem}
+.step-body{padding:1.75rem}
+
+/* Question blocks */
+.q-block{margin-bottom:1.75rem}
+.q-block:last-child{margin-bottom:0}
+.q-label{font-size:.875rem;font-weight:600;color:var(--navy);margin-bottom:.75rem;line-height:1.4}
+.q-note{font-size:.8rem;color:var(--gray);font-weight:400;margin-left:.375rem}
+
+/* Choice grids */
+.cgrid{display:grid;gap:.5rem}
+.c2{grid-template-columns:1fr 1fr}
+.c3{grid-template-columns:1fr 1fr 1fr}
+
+.choice{padding:.75rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);font-size:.875rem;color:var(--gray);display:flex;align-items:center;gap:.625rem;line-height:1.3;background:#fff}
+.choice.selected{border-color:var(--amber);background:var(--amber-light);color:var(--navy);font-weight:500}
+.choice.multi-selected{border-color:var(--amber);background:var(--amber-light);color:var(--navy);font-weight:500}
+.choice-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem}
+.choice.selected .choice-dot,.choice.multi-selected .choice-dot{background:var(--amber);border-color:var(--amber);color:#fff}
+.choice-sq{width:18px;height:18px;border-radius:3px;border:2px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem}
+.choice.multi-selected .choice-sq{background:var(--amber);border-color:var(--amber);color:#fff}
+
+/* Checklist */
+.chk-list{display:flex;flex-direction:column;gap:.5rem}
+.chk{display:flex;align-items:flex-start;gap:.75rem;padding:.875rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);background:#fff}
+.chk.ticked{border-color:var(--green);background:var(--green-light)}
+.chk-box{width:20px;height:20px;border-radius:4px;border:2px solid var(--gray2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:.75rem}
+.chk.ticked .chk-box{background:var(--green);border-color:var(--green);color:#fff}
+.chk-text{font-size:.875rem;line-height:1.4;color:var(--gray)}
+.chk.ticked .chk-text{color:var(--navy);font-weight:500}
+.chk-sub{font-size:.75rem;color:var(--gray);margin-top:.2rem;font-weight:400}
+.chk.ticked .chk-sub{color:var(--green)}
+
+/* Step 4 */
+.disc-box{background:#fde8e8;border:1.5px solid #f8a8a8;border-radius:var(--r2);padding:1.25rem;margin-bottom:1.25rem}
+.disc-title{font-size:.875rem;font-weight:600;color:#b31b1b;margin-bottom:.625rem}
+.disc-text{font-size:.8125rem;color:#374151;line-height:1.65;margin-bottom:1rem}
+.disc-ack{background:rgba(255,255,255,.7);border:1.5px solid var(--green);border-radius:var(--r);padding:.75rem;display:flex;align-items:flex-start;gap:.75rem;background:var(--green-light)}
+.disc-ack-text{font-size:.8125rem;color:var(--navy);font-weight:500;line-height:1.5}
+.fake-checkbox{width:16px;height:16px;border-radius:3px;background:var(--green);border:2px solid var(--green);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.65rem}
+.email-field{margin-top:1.25rem}
+.email-field label{display:block;font-size:.8125rem;font-weight:500;color:var(--navy);margin-bottom:.5rem}
+.email-mock{width:100%;padding:.75rem 1rem;border:1.5px solid var(--amber);border-radius:var(--r);font-family:var(--sans);font-size:.9375rem;color:var(--gray);background:#fff}
+.consent-mock{display:flex;align-items:flex-start;gap:.75rem;padding:1rem;background:var(--gray3);border-radius:var(--r);margin-top:.875rem}
+.consent-mock input{width:16px;height:16px;flex-shrink:0;margin-top:1px;accent-color:var(--amber)}
+.consent-mock span{font-size:.8125rem;color:var(--gray);line-height:1.5}
+.consent-mock a{color:var(--amber);text-decoration:none}
+
+/* Legend */
+.legend{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;padding:1rem 1.25rem;background:#fff;border-radius:var(--r2);border:1.5px solid var(--gray2)}
+.leg-item{display:flex;align-items:center;gap:.5rem;font-size:.8125rem;color:var(--gray)}
+.leg-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.leg-sq{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.leg-dot.amber{background:var(--amber)}
+.leg-dot.green{background:var(--green)}
+.leg-sq.gray{background:var(--gray2);border:2px solid var(--gray2)}
+
+/* Flow arrow */
+.flow-arrow{text-align:center;color:var(--gray);font-size:1.5rem;margin:-1rem 0 1rem;opacity:.4}
+
+@media(max-width:700px){
+  .steps-overview{grid-template-columns:1fr 1fr}
+  .c2,.c3{grid-template-columns:1fr}
+  .step-body{padding:1.25rem}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem">
+    <a href="javascript:history.back()" style="font-size:.875rem;color:var(--gray);text-decoration:none;display:flex;align-items:center;gap:.375rem">← Back to site</a>
+  </div>
+
+  <h1 class="page-title">What the guide asks you</h1>
+  <p class="page-sub">Four steps, roughly two minutes. Below is a walkthrough of every question — showing both an example of an unanswered state and a typical answered state.</p>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot amber"></div>Selected answer (single choice)</div>
+    <div class="leg-item"><div class="leg-sq amber" style="background:var(--amber-light);border:2px solid var(--amber)"></div>Selected answer (multiple choice)</div>
+    <div class="leg-item"><div class="leg-dot green"></div>Ticked (compliance checklist)</div>
+    <div class="leg-item"><div class="leg-sq gray"></div>Unselected</div>
+  </div>
+
+  <!-- Steps overview pills -->
+  <div class="steps-overview">
+    <div class="step-pill current"><div class="sp-num">1</div><div class="sp-label">Your portfolio</div></div>
+    <div class="step-pill"><div class="sp-num">2</div><div class="sp-label">Tenancy setup</div></div>
+    <div class="step-pill"><div class="sp-num">3</div><div class="sp-label">Existing compliance</div></div>
+    <div class="step-pill"><div class="sp-num">4</div><div class="sp-label">Disclaimer + email</div></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-block">
+    <div class="step-hdr">
+      <div class="step-hdr-num">01</div>
+      <div class="step-hdr-text">
+        <div class="step-hdr-eye">Step 1 of 4</div>
+        <div class="step-hdr-title">Your portfolio</div>
+        <div class="step-hdr-sub">Tell us about your properties so we can personalise your readiness summary.</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="q-block">
+        <div class="q-label">How many rental properties do you own?</div>
+        <div class="cgrid c2">
+          <div class="choice"><span class="choice-dot"></span>1 property</div>
+          <div class="choice selected"><span class="choice-dot">✓</span>2–4 properties</div>
+          <div class="choice"><span class="choice-dot"></span>5–9 properties</div>
+          <div class="choice"><span class="choice-dot"></span>10+ properties</div>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">Property types <span class="q-note">(select all that apply)</span></div>
+        <div class="cgrid c2">
+          <div class="choice multi-selected"><span class="choice-sq">✓</span>Standard single-let</div>
+          <div class="choice"><span class="choice-sq"></span>House in Multiple Occupation (HMO)</div>
+          <div class="choice"><span class="choice-sq"></span>Student accommodation</div>
+          <div class="choice"><span class="choice-sq"></span>Short-term / holiday let</div>
+        </div>
+        <p style="font-size:.75rem;color:var(--gray);margin-top:.625rem">Multiple options can be selected if you have a mixed portfolio.</p>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">Location</div>
+        <div class="cgrid c3">
+          <div class="choice"><span class="choice-dot"></span>London</div>
+          <div class="choice selected"><span class="choice-dot">✓</span>South East</div>
+          <div class="choice"><span class="choice-dot"></span>South West</div>
+          <div class="choice"><span class="choice-dot"></span>Midlands</div>
+          <div class="choice"><span class="choice-dot"></span>North England</div>
+          <div class="choice"><span class="choice-dot"></span>Other / Multiple</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- STEP 2 -->
+  <div class="step-block">
+    <div class="step-hdr">
+      <div class="step-hdr-num">02</div>
+      <div class="step-hdr-text">
+        <div class="step-hdr-eye">Step 2 of 4</div>
+        <div class="step-hdr-title">Your tenancy setup</div>
+        <div class="step-hdr-sub">These answers determine which parts of the Act affect you most urgently.</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="q-block">
+        <div class="q-label">Do you currently have fixed-term Assured Shorthold Tenancies (ASTs) — contracts with an end date?</div>
+        <div class="cgrid c2">
+          <div class="choice selected"><span class="choice-dot">✓</span>Yes, some of my tenancies</div>
+          <div class="choice"><span class="choice-dot"></span>Yes, all are fixed-term</div>
+          <div class="choice"><span class="choice-dot"></span>No, all periodic already</div>
+          <div class="choice"><span class="choice-dot"></span>Not sure</div>
+        </div>
+        <p style="font-size:.75rem;color:var(--gray);margin-top:.625rem">A fixed-term tenancy has a specific end date written into the agreement (e.g. a 12-month contract). A periodic tenancy rolls on month-by-month with no end date.</p>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">How do you currently increase rent?</div>
+        <div class="cgrid c2">
+          <div class="choice selected"><span class="choice-dot">✓</span>Informally / verbally</div>
+          <div class="choice"><span class="choice-dot"></span>Formal written notice</div>
+          <div class="choice"><span class="choice-dot"></span>Via letting agent</div>
+          <div class="choice"><span class="choice-dot"></span>Rarely or never</div>
+        </div>
+        <p style="font-size:.75rem;color:var(--gray);margin-top:.625rem">From 1 May 2026, all rent increases must go through the formal Section 13 process using the prescribed Form 4A — verbal or informal increases become unlawful.</p>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">Do you collect more than 1 month's rent in advance on new tenancies?</div>
+        <div class="cgrid c2">
+          <div class="choice"><span class="choice-dot"></span>Yes, 2+ months upfront</div>
+          <div class="choice"><span class="choice-dot"></span>Sometimes</div>
+          <div class="choice selected"><span class="choice-dot">✓</span>No, 1 month only</div>
+          <div class="choice"><span class="choice-dot"></span>No advance rent</div>
+        </div>
+        <p style="font-size:.75rem;color:var(--gray);margin-top:.625rem">From 1 May 2026, collecting more than 1 month's rent in advance on new tenancies is banned. Any excess charged must be refunded.</p>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label">Have you served or are you planning to serve a Section 21 notice?</div>
+        <div class="cgrid c2">
+          <div class="choice"><span class="choice-dot"></span>Served in last 6 months</div>
+          <div class="choice"><span class="choice-dot"></span>Planning to before May 2026</div>
+          <div class="choice selected"><span class="choice-dot">✓</span>No</div>
+          <div class="choice"><span class="choice-dot"></span>Not applicable</div>
+        </div>
+        <p style="font-size:.75rem;color:var(--gray);margin-top:.625rem">Section 21 'no-fault' evictions are abolished from 1 May 2026. The last date a valid Section 21 notice can be served is 30 April 2026.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- STEP 3 -->
+  <div class="step-block">
+    <div class="step-hdr">
+      <div class="step-hdr-num">03</div>
+      <div class="step-hdr-text">
+        <div class="step-hdr-eye">Step 3 of 4</div>
+        <div class="step-hdr-title">Existing compliance</div>
+        <div class="step-hdr-sub">Tick what you have confirmed and up to date. Be accurate — the more honest you are, the more useful your summary.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p style="font-size:.875rem;color:var(--gray);margin-bottom:1.25rem;line-height:1.6">This is a checklist, not a quiz — there are no wrong answers. Unticked items will appear as gaps in your report. Below shows an example with some items ticked and some not.</p>
+      <div class="chk-list">
+        <div class="chk ticked"><div class="chk-box">✓</div><div class="chk-text">Written tenancy agreement for all properties<div class="chk-sub">All tenants have a signed agreement</div></div></div>
+        <div class="chk ticked"><div class="chk-box">✓</div><div class="chk-text">Valid Gas Safety Certificate (annual)<div class="chk-sub">Provided before move-in and within 28 days of each annual check</div></div></div>
+        <div class="chk"><div class="chk-box"></div><div class="chk-text" style="color:var(--gray)">Valid Energy Performance Certificate (EPC) rated E or above<div class="chk-sub">Required before marketing any property to let</div></div></div>
+        <div class="chk ticked"><div class="chk-box">✓</div><div class="chk-text">Smoke alarms tested and working on every floor<div class="chk-sub">Must be confirmed working on day 1 of every tenancy</div></div></div>
+        <div class="chk"><div class="chk-box"></div><div class="chk-text" style="color:var(--gray)">Carbon monoxide detectors where required<div class="chk-sub">Mandatory where solid fuel appliances are present</div></div></div>
+        <div class="chk ticked"><div class="chk-box">✓</div><div class="chk-text">Deposit protected in approved scheme within 30 days<div class="chk-sub">Plus prescribed information provided to tenant</div></div></div>
+        <div class="chk"><div class="chk-box"></div><div class="chk-text" style="color:var(--gray)">Current 'How to Rent' guide provided at tenancy start<div class="chk-sub">Must be the latest version each time</div></div></div>
+        <div class="chk"><div class="chk-box"></div><div class="chk-text" style="color:var(--gray)">Electrical Installation Condition Report (EICR) within the last 5 years<div class="chk-sub">Copy must be provided to all tenants</div></div></div>
+      </div>
+      <p style="font-size:.75rem;color:var(--gray);margin-top:1rem">Unticked items — like the Energy Performance Certificate (EPC), 'How to Rent' guide, and Electrical Installation Condition Report (EICR) above — will appear in your report as gaps to address.</p>
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- STEP 4 -->
+  <div class="step-block">
+    <div class="step-hdr">
+      <div class="step-hdr-num">04</div>
+      <div class="step-hdr-text">
+        <div class="step-hdr-eye">Step 4 of 4</div>
+        <div class="step-hdr-title">Before we generate your summary</div>
+        <div class="step-hdr-sub">A mandatory disclaimer acknowledgement, then your email to receive the report.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="disc-box">
+        <div class="disc-title">⚠ This is general information — not legal advice</div>
+        <div class="disc-text">LandlordReady is an information tool, not a legal service. We are not solicitors. Your readiness summary is generated by AI based on the Renters' Rights Act 2025 as understood at March 2026. It may not capture every nuance of your situation, local authority rules, or later regulatory changes.<br><br>You must verify anything you act on against official government sources at <strong>gov.uk</strong>, and consult a qualified solicitor before making legal decisions about possession, eviction, or tenancy changes.</div>
+        <div class="disc-ack">
+          <div class="fake-checkbox">✓</div>
+          <div class="disc-ack-text">I understand this is general information only. I will not rely on it as legal advice and will consult a solicitor for decisions specific to my situation.</div>
+        </div>
+      </div>
+      <div class="email-field">
+        <label>Your email — we'll send you the full summary</label>
+        <input class="email-mock" type="email" value="jane.landlord@example.co.uk" readonly>
+      </div>
+      <label class="consent-mock">
+        <input type="checkbox" checked>
+        <span>I agree to receive my readiness summary and UK rental law updates from LandlordReady. I can unsubscribe at any time. <a href="#">Privacy Policy</a>. We never share your data with third parties.</span>
+      </label>
+      <p style="font-size:.75rem;color:var(--gray);margin-top:1rem">The disclaimer box must be ticked before the email field becomes usable. Once all three items are confirmed — disclaimer, email address, and marketing consent — the "Generate my summary" button activates.</p>
+    </div>
+  </div>
+
+  <div class="flow-arrow">↓</div>
+
+  <!-- What happens next -->
+  <div class="step-block">
+    <div class="step-hdr" style="background:#1a6b42">
+      <div class="step-hdr-num" style="color:rgba(255,255,255,.2)">→</div>
+      <div class="step-hdr-text">
+        <div class="step-hdr-eye" style="color:rgba(163,230,189,.9)">What happens next</div>
+        <div class="step-hdr-title">Report generated and emailed instantly</div>
+        <div class="step-hdr-sub">The AI analyses the answers and produces a personalised action plan in under 10 seconds.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p style="font-size:.9375rem;color:var(--gray);line-height:1.7;margin-bottom:1.25rem">Based on the answers above — 2–4 standard single-lets in the South East, some fixed-term Assured Shorthold Tenancies (ASTs), informal rent increases, a partially completed compliance checklist — the report would flag:</p>
+      <div style="display:flex;flex-direction:column;gap:.5rem">
+        <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.875rem 1rem;background:#fde8e8;border-radius:8px;border-left:3px solid #b31b1b">
+          <span style="font-size:.8125rem;font-weight:700;color:#b31b1b;flex-shrink:0;margin-top:.05rem">URGENT</span>
+          <span style="font-size:.875rem;color:#374151;line-height:1.5">Send the Government Information Sheet to ALL existing tenants by 31 May 2026 — civil penalty up to £7,000 per tenancy if not done</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.875rem 1rem;background:#fde8e8;border-radius:8px;border-left:3px solid #b31b1b">
+          <span style="font-size:.8125rem;font-weight:700;color:#b31b1b;flex-shrink:0;margin-top:.05rem">URGENT</span>
+          <span style="font-size:.875rem;color:#374151;line-height:1.5">Update tenancy agreement template — remove fixed-term and Section 21 clauses before any new tenancy from 1 May 2026</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.875rem 1rem;background:#fdeee3;border-radius:8px;border-left:3px solid #c45400">
+          <span style="font-size:.8125rem;font-weight:700;color:#c45400;flex-shrink:0;margin-top:.05rem">REQUIRED</span>
+          <span style="font-size:.875rem;color:#374151;line-height:1.5">Switch to formal Section 13 notice process for all rent increases from 1 May 2026 — verbal increases are unlawful after this date</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.875rem 1rem;background:#fdeee3;border-radius:8px;border-left:3px solid #c45400">
+          <span style="font-size:.8125rem;font-weight:700;color:#c45400;flex-shrink:0;margin-top:.05rem">REQUIRED</span>
+          <span style="font-size:.875rem;color:#374151;line-height:1.5">Obtain valid Energy Performance Certificates (EPCs) for properties where this is not confirmed — required before marketing any property</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.875rem 1rem;background:#e3f5ec;border-radius:8px;border-left:3px solid #1a6b42">
+          <span style="font-size:.8125rem;font-weight:700;color:#1a6b42;flex-shrink:0;margin-top:.05rem">DOING WELL</span>
+          <span style="font-size:.875rem;color:#374151;line-height:1.5">Written tenancy agreements confirmed for all properties — the automatic conversion to periodic tenancies on 1 May 2026 will be straightforward</span>
+        </div>
+      </div>
+      <p style="font-size:.75rem;color:var(--gray);margin-top:1.25rem;line-height:1.6">The full report includes 3–6 urgent actions, 3–4 required steps, positive notes on what is already in place, and a legal disclaimer. It is emailed to the address provided and also displayed on screen immediately.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem;text-align:center">
+    <a href="landlordready-v2.html" style="background:var(--amber);color:var(--navy);font-size:.9375rem;font-weight:600;padding:.875rem 2rem;border-radius:8px;text-decoration:none;display:inline-block">Try the actual guide →</a>
+  </div>
+
+</div>
+</body>
+</html>
