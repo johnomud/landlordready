@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free Renters' Rights Act 2025 readiness guide for UK landlords. From £7/month certificate tracker.">
-<title>LandlordReady — Renters' Rights Act 2025 Readiness Guide</title>
+<meta name="description" content="Free Renters' Rights Act 2025 readiness guide for UK landlords. From Â£7/month certificate tracker.">
+<title>LandlordReady â Renters' Rights Act 2025 Readiness Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -434,6 +434,10 @@ footer{background:var(--navy);padding:3rem 2.5rem}
         </div>
         <div class="email-section" id="email-section">
           <div class="field">
+            <label for="name-input">Your first name</label>
+            <input type="text" id="name-input" placeholder="e.g. John" autocomplete="given-name">
+          </div>
+          <div class="field">
             <label for="email-input">Your email &#8212; we&#8217;ll send you the full summary</label>
             <input type="email" id="email-input" placeholder="you@example.co.uk">
           </div>
@@ -632,6 +636,7 @@ document.getElementById('dg-label').addEventListener('click', function(e) {
   refreshBtn();
 });
 
+document.getElementById('name-input').addEventListener('input', refreshBtn);
 document.getElementById('email-input').addEventListener('input', refreshBtn);
 document.getElementById('consent-check').addEventListener('change', refreshBtn);
 
@@ -640,8 +645,9 @@ function validate(s) {
   if (s === 2) return !!(S.data.hasAST && S.data.rentIncrease && S.data.rentAdvance && S.data.s21);
   if (s === 3) return true;
   if (s === 4) {
+    var n = document.getElementById('name-input').value.trim();
     var e = document.getElementById('email-input').value;
-    return !!(document.getElementById('dg-check').checked && document.getElementById('consent-check').checked && e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+    return !!(n && document.getElementById('dg-check').checked && document.getElementById('consent-check').checked && e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
   }
   return true;
 }
@@ -665,7 +671,7 @@ function updateUI() {
 
 window.nextStep = function() {
   if (!validate(S.step)) return;
-  if (S.step === S.total) { S.data.email = document.getElementById('email-input').value; generate(); return; }
+  if (S.step === S.total) { S.data.name = document.getElementById('name-input').value.trim(); S.data.email = document.getElementById('email-input').value; generate(); return; }
   S.step++; updateUI();
 };
 
@@ -691,7 +697,7 @@ function generate() {
     return;
   }
 
-  // Send email inside formData — the function logs it to Notion server-side
+  // Send email inside formData â the function logs it to Notion server-side
   var payload = { formData: Object.assign({}, S.data, { email: S.data.email }) };
 
   fetch(CONFIG.PROXY_URL, {
