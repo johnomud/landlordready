@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free Renters' Rights Act 2025 readiness guide for UK landlords. From Â£7/month certificate tracker.">
-<title>LandlordReady â Renters' Rights Act 2025 Readiness Guide</title>
+<meta name="description" content="Free Renters' Rights Act 2025 readiness guide for UK landlords. From ÃÂ£7/month certificate tracker.">
+<title>LandlordReady Ã¢ÂÂ Renters' Rights Act 2025 Readiness Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -103,8 +103,8 @@ nav{background:var(--navy);padding:1rem 2.5rem;display:flex;align-items:center;j
 .dg-ack-text{font-size:.8125rem;color:var(--navy);line-height:1.5;font-weight:500}
 .email-section{opacity:.4;pointer-events:none;transition:opacity .3s}
 .email-section.unlocked{opacity:1;pointer-events:auto}
-.field input[type=email]{width:100%;padding:.75rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);font-family:var(--sans);font-size:.9375rem;color:var(--navy);outline:none;transition:border-color .2s}
-.field input[type=email]:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(201,125,10,.12)}
+.field input[type=email],.field input[type=text]{width:100%;padding:.75rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);font-family:var(--sans);font-size:.9375rem;color:var(--navy);outline:none;transition:border-color .2s}
+.field input[type=email]:focus,.field input[type=text]:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(201,125,10,.12)}
 .consent-row{display:flex;align-items:flex-start;gap:.75rem;padding:1rem;background:var(--gray3);border-radius:var(--r);cursor:pointer;margin-top:.875rem}
 .consent-row input[type=checkbox]{margin-top:2px;accent-color:var(--amber);width:16px;height:16px;cursor:pointer}
 .consent-text{font-size:.8125rem;color:var(--gray);line-height:1.5}
@@ -434,11 +434,11 @@ footer{background:var(--navy);padding:3rem 2.5rem}
         </div>
         <div class="email-section" id="email-section">
           <div class="field">
-            <label for="name-input">Your first name</label>
+            <label for="name-input">Your first name <span style="color:var(--amber)">*</span></label>
             <input type="text" id="name-input" placeholder="e.g. John" autocomplete="given-name">
           </div>
           <div class="field">
-            <label for="email-input">Your email &#8212; we&#8217;ll send you the full summary</label>
+            <label for="email-input">Your email &#8212; we&#8217;ll send you the full summary <span style="color:var(--amber)">*</span></label>
             <input type="email" id="email-input" placeholder="you@example.co.uk">
           </div>
           <label class="consent-row">
@@ -697,7 +697,7 @@ function generate() {
     return;
   }
 
-  // Send email inside formData â the function logs it to Notion server-side
+  // Send email inside formData Ã¢ÂÂ the function logs it to Notion server-side
   var payload = { formData: Object.assign({}, S.data, { email: S.data.email }) };
 
   fetch(CONFIG.PROXY_URL, {
