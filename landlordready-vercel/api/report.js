@@ -2,21 +2,21 @@
  * LandlordReady - report.js
  * Vercel serverless function. Plain CommonJS - no bundler, no npm packages needed.
  *
- * âââ ENVIRONMENT VARIABLES âââââââââââââââââââââââââââââââââââââââââââââââââââ
- * Set both in Vercel â Project Settings â Environment Variables â Add variable
+ * Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ ENVIRONMENT VARIABLES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+ * Set both in Vercel Ã¢ÂÂ Project Settings Ã¢ÂÂ Environment Variables Ã¢ÂÂ Add variable
  *
  *   CLAUDE_API_KEY    Your Anthropic API key (console.anthropic.com)
  *   NOTION_API_KEY    Your Notion integration token (notion.so/my-integrations)
  *
- * âââ NOTION SETUP (one-time, ~5 minutes) ââââââââââââââââââââââââââââââââââââ
- * 1. Go to notion.so/my-integrations â New integration
- * 2. Name it "LandlordReady" â Submit â copy the Internal Integration Token
+ * Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ NOTION SETUP (one-time, ~5 minutes) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+ * 1. Go to notion.so/my-integrations Ã¢ÂÂ New integration
+ * 2. Name it "LandlordReady" Ã¢ÂÂ Submit Ã¢ÂÂ copy the Internal Integration Token
  * 3. In Notion, open the "User Submissions" database
- * 4. Click â¢â¢â¢ (top right) â Connections â Connect to â LandlordReady
+ * 4. Click Ã¢ÂÂ¢Ã¢ÂÂ¢Ã¢ÂÂ¢ (top right) Ã¢ÂÂ Connections Ã¢ÂÂ Connect to Ã¢ÂÂ LandlordReady
  * 5. Paste the token as NOTION_API_KEY in Vercel env vars
  * 6. Trigger a redeploy
  *
- * âââ HOW NOTION LOGGING WORKS ââââââââââââââââââââââââââââââââââââââââââââââââ
+ * Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂ HOW NOTION LOGGING WORKS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
  * After every successful report generation, this function creates a new row in
  * your User Submissions Notion database. The email, score, portfolio details,
  * and submission date are all logged automatically. Logging is non-blocking -
@@ -25,11 +25,11 @@
 
 'use strict';
 
-// ââ Notion database details (from live schema) ââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Notion database details (from live schema) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 var NOTION_DB_ID      = 'a83e5c65-366d-46d3-9e93-b434643547fe';
 var NOTION_API_VER    = '2022-06-28';
 
-// ââ Map form values â exact Notion select option names ââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Map form values Ã¢ÂÂ exact Notion select option names Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 // These must match the option names in the Notion database exactly.
 var PROPERTY_COUNT_MAP = { '1':'1', '2-4':'2-4', '5-9':'5-9', '10+':'10+' };
 var HAS_AST_MAP = {
@@ -45,7 +45,7 @@ var RENT_ADVANCE_MAP = {
   'None':          'No advance'
 };
 
-// ââ Claude system prompt ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Claude system prompt Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 var SYSTEM_PROMPT = [
   'You are a UK residential property compliance expert with comprehensive knowledge of the',
   "Renters' Rights Act 2025 and all existing Private Rented Sector housing legislation.",
@@ -65,7 +65,7 @@ var SYSTEM_PROMPT = [
   '- Tenants can serve 2 months notice from day one.',
   '',
   'PHASE 1b - BY 31 MAY 2026:',
-  '- Government Information Sheet MUST be sent to ALL existing tenants. Penalty: up to Â£7,000 per tenancy.',
+  '- Government Information Sheet MUST be sent to ALL existing tenants. Penalty: up to ÃÂ£7,000 per tenancy.',
   '- Written Statement of Terms required where verbal agreements exist.',
   '',
   'KEY SECTION 8 GROUNDS (only route to possession from 1 May 2026):',
@@ -89,9 +89,9 @@ var SYSTEM_PROMPT = [
       'When a landlord selects "Company let" as their only tenancy type, make this very clear in the report and avoid incorrectly flagging Renters\' Rights Act 2025 provisions that do not apply to them.',
       '',
       'EXISTING OBLIGATIONS:',
-      '- Gas Safety Certificate: annual; to tenant before move-in and within 28 days of each check. Fine up to Â£6,000.',
+      '- Gas Safety Certificate: annual; to tenant before move-in and within 28 days of each check. Fine up to ÃÂ£6,000.',
       '- Energy Performance Certificate (EPC): minimum E rating; cannot market without one. C rating required by 2030.',
-      '- Electrical Installation Condition Report (EICR): every 5 years; copy to tenants. Penalty up to Â£30,000.',
+      '- Electrical Installation Condition Report (EICR): every 5 years; copy to tenants. Penalty up to ÃÂ£30,000.',
       '- Smoke alarms: one per storey, working on day 1 of tenancy.',
   '- Carbon monoxide detectors: mandatory where solid fuel appliances.',
   '- Deposit protection: Tenancy Deposit Protection scheme within 30 days; prescribed information within 30 days.',
@@ -114,7 +114,7 @@ var SYSTEM_PROMPT = [
   '}'
 ].join('\n');
 
-// ââ Build Claude user message ââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Build Claude user message Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function buildPrompt(data) {
   var ALL_CHECKS = [
     'Written tenancy agreement for all properties',
@@ -130,6 +130,7 @@ function buildPrompt(data) {
   var gaps = ALL_CHECKS.filter(function(c) { return confirmed.indexOf(c) === -1; });
 
   return [
+    'Landlord name: ' + (data.name || 'not provided'),
     'Portfolio:',
     '- Number of properties: ' + (data.propertyCount || 'not specified'),
     '- Tenancy types: ' + (Array.isArray(data.propertyTypes) && data.propertyTypes.length ? data.propertyTypes.join(', ') : 'not specified'),
@@ -153,18 +154,18 @@ function buildPrompt(data) {
   ].join('\n');
 }
 
-// ââ Sanitise input âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Sanitise input Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 function sanitise(v) {
   if (typeof v === 'string') return v.replace(/<[^>]*>/g, '').substring(0, 200);
   if (Array.isArray(v)) return v.map(sanitise).slice(0, 10);
   return v;
 }
 
-// ââ Log submission to Notion âââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Log submission to Notion Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 // Property names here match the exact Notion database schema.
 // The Notion REST API uses the display name of the property, NOT the MCP internal name.
 // So "Submitted" not "date:Submitted:start", etc.
-async function logToNotion(notionKey, email, formData, report) {
+async function logToNotion(notionKey, name, email, formData, report) {
   var today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
   // Build properties object using exact Notion REST API format
@@ -172,6 +173,10 @@ async function logToNotion(notionKey, email, formData, report) {
     // Title property
     'Email': {
       title: [{ text: { content: email || 'unknown' } }]
+    },
+    // Name
+    'Name': {
+      rich_text: [{ text: { content: name || '' } }]
     },
     // Number
     'Compliance Score': {
@@ -244,7 +249,7 @@ async function logToNotion(notionKey, email, formData, report) {
   }
 }
 
-// ââ Main handler (Vercel format) ââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ Main handler (Vercel format) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 module.exports = async function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -275,13 +280,14 @@ module.exports = async function(req, res) {
     return res.status(503).json({ error: 'Service not configured', setup_required: true });
   }
 
-  // Extract email before sanitising
+  // Extract name and email before sanitising
+  var name = typeof body.formData.name === 'string' ? body.formData.name.trim().substring(0, 50) : '';
   var email = typeof body.formData.email === 'string' ? body.formData.email.trim() : '';
 
   // Sanitise everything except email before passing to Claude
   var formData = {};
   for (var key in body.formData) {
-    if (key !== 'email') formData[key] = sanitise(body.formData[key]);
+    if (key !== 'email' && key !== 'name') formData[key] = sanitise(body.formData[key]);
   }
 
   // Call Claude API
@@ -341,7 +347,7 @@ module.exports = async function(req, res) {
   var notionKey = process.env.NOTION_API_KEY;
   if (notionKey && email) {
     try {
-      await logToNotion(notionKey, email, formData, report);
+      await logToNotion(notionKey, name, email, formData, report);
     } catch(err) {
       console.error('[Notion] Unexpected error:', err.message);
     }
