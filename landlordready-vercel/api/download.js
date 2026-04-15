@@ -43,6 +43,7 @@ module.exports = async function(req, res) {
     return res.status(503).json({ error: 'Service not configured' });
   }
 
+  // Validate session with Stripe
   var session;
   try {
     session = await stripeGet('/checkout/sessions/' + sessionId, stripeKey);
@@ -51,14 +52,17 @@ module.exports = async function(req, res) {
     return res.status(404).json({ error: 'Session not found' });
   }
 
+  // Check payment was successful
   if (session.payment_status !== 'paid') {
     return res.status(402).json({ error: 'Payment not completed' });
   }
 
+  // Check it was for the document pack
   if (session.metadata && session.metadata.product !== 'pack') {
     return res.status(403).json({ error: 'This session is not for the document pack' });
   }
 
+  // Check session isn't too old (48 hours)
   var sessionAge = Date.now() / 1000 - session.created;
   if (sessionAge > 48 * 3600) {
     return res.status(410).json({ 
@@ -67,7 +71,8 @@ module.exports = async function(req, res) {
     });
   }
 
-  var zipPath = path.join(__dirname, '../public/docs/landlordready-document-pack.zip');
+  // Serve the ZIP (bundled via vercel.json includeFiles)
+  var zipPath = path.join(process.cwd(), 'private/docs/landlordready-document-pack.zip');
   
   if (!fs.existsSync(zipPath)) {
     console.error('[Download] ZIP not found at:', zipPath);
