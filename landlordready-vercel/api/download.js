@@ -58,7 +58,7 @@ module.exports = async function(req, res) {
   }
 
   // Check it was for the document pack
-  if (session.metadata && session.metadata.product !== 'pack') {
+  if (session.metadata && session.metadata.product && session.metadata.product !== 'pack') {
     return res.status(403).json({ error: 'This session is not for the document pack' });
   }
 
