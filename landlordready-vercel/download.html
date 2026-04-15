@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LandlordReady &#8212; Download Your Document Pack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#f8f6f1;color:#0d1b2a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.card{background:#fff;border-radius:16px;padding:2.5rem;max-width:520px;width:100%;box-shadow:0 4px 40px rgba(13,27,42,.09);text-align:center}
+.logo{font-family:'Fraunces',serif;font-size:1.5rem;color:#0d1b2a;margin-bottom:2rem}
+.logo em{font-style:normal;color:#c97d0a}
+.spinner{width:48px;height:48px;border:3px solid #e5e7eb;border-top-color:#c97d0a;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-family:'Fraunces',serif;font-size:1.5rem;color:#0d1b2a;margin-bottom:.5rem}
+p{color:#6b7280;font-size:.9375rem;line-height:1.6;margin-bottom:1.25rem}
+.btn-download{display:inline-block;background:#c97d0a;color:#0d1b2a;font-weight:700;font-size:1rem;padding:1rem 2rem;border-radius:8px;text-decoration:none;margin-bottom:1rem;transition:opacity .2s}
+.btn-download:hover{opacity:.88}
+.doc-list{background:#f8f6f1;border-radius:8px;padding:1.25rem;text-align:left;margin:1rem 0}
+.doc-list p{margin:0 0 .5rem;font-weight:600;color:#0d1b2a;font-size:.875rem}
+.doc-list ul{padding-left:1.25rem;color:#374151;font-size:.875rem;line-height:1.8;margin:0}
+.note{font-size:.8125rem;color:#9ca3af}
+.error-box{background:#fde8e8;border:1px solid #f8a8a8;border-radius:8px;padding:1rem;color:#b31b1b;font-size:.875rem}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Landlord<em>Ready</em></div>
+  <div id="content">
+    <div class="spinner"></div>
+    <p>Verifying your purchase...</p>
+  </div>
+</div>
+<script>
+(function() {
+  var params = new URLSearchParams(location.search);
+  var sessionId = params.get('session_id');
+  
+  if (!sessionId) {
+    document.getElementById('content').innerHTML = 
+      '<div class="error-box">No session found. Please use the download link from your confirmation email, or email help@landlordready.co.uk for assistance.</div>';
+    return;
+  }
+  
+  var dl = document.createElement('a');
+  dl.href = '/api/download?session_id=' + encodeURIComponent(sessionId);
+  dl.download = 'LandlordReady-Document-Pack.zip';
+  
+  document.getElementById('content').innerHTML =
+    '<h1>Your document pack is ready.</h1>' +
+    '<p>Thank you for your purchase. Click the button below to download all 5 documents.</p>' +
+    '<div class="doc-list">' +
+      '<p>Your pack includes:</p>' +
+      '<ul>' +
+        '<li>Assured Periodic Tenancy Agreement (post-May 2026)</li>' +
+        '<li>Section 8 Possession Notice templates</li>' +
+        '<li>Government Information Sheet (send by 31 May 2026)</li>' +
+        '<li>Section 13 Rent Increase Notice</li>' +
+        '<li>Compliance Action Checklist</li>' +
+      '</ul>' +
+    '</div>' +
+    '<a href="/api/download?session_id=' + encodeURIComponent(sessionId) + '" class="btn-download" download="LandlordReady-Document-Pack.zip">&#11015; Download Document Pack</a>' +
+    '<p class="note">If your download doesn\'t start automatically, click the button above.<br>' +
+    'This link is valid for 48 hours. Questions? Email help@landlordready.co.uk</p>';
+  
+  setTimeout(function() { dl.click(); }, 800);
+})();
+</script>
+</body>
+</html>
