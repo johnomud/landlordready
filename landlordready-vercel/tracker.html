@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LandlordReady &#8212; Certificate Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0d1b2a;--navy2:#162436;--cream:#f8f6f1;--amber:#c97d0a;--amber-light:#f5e9cc;--red:#b31b1b;--red-light:#fde8e8;--orange:#c45400;--orange-light:#fdeee3;--green:#1a6b42;--green-light:#e3f5ec;--gray:#6b7280;--gray2:#e5e7eb;--gray3:#f3f4f6;--serif:'Fraunces',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;--r:8px;--r2:12px}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--gray3);color:var(--navy);font-size:16px;line-height:1.6;min-height:100vh}
+/* Auth screen */
+.auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--navy)}
+.auth-card{background:#fff;border-radius:var(--r2);padding:2.5rem;max-width:480px;width:100%;text-align:center}
+.auth-logo{font-family:var(--serif);font-size:1.5rem;color:var(--navy);margin-bottom:1.5rem}
+.auth-logo em{font-style:normal;color:var(--amber)}
+.auth-title{font-family:var(--serif);font-size:1.5rem;color:var(--navy);margin-bottom:.5rem}
+.auth-sub{color:var(--gray);font-size:.9rem;margin-bottom:1.5rem;line-height:1.6}
+.auth-loading{display:flex;flex-direction:column;align-items:center;gap:1rem;padding:1rem}
+.spinner{width:40px;height:40px;border:3px solid var(--gray2);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.btn-amber{background:var(--amber);color:var(--navy);font-weight:700;font-size:.9375rem;padding:.875rem 2rem;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--sans);width:100%;transition:opacity .2s}
+.btn-amber:hover{opacity:.88}
+/* App layout */
+.app{display:none;min-height:100vh;flex-direction:column}
+.app.visible{display:flex}
+.app-header{background:var(--navy);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.app-logo{font-family:var(--serif);font-size:1.25rem;color:#fff}
+.app-logo em{font-style:normal;color:var(--amber)}
+.user-info{font-size:.8125rem;color:rgba(255,255,255,.5)}
+.app-main{flex:1;padding:1.5rem;max-width:1100px;margin:0 auto;width:100%}
+/* Stats bar */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:#fff;border-radius:var(--r2);padding:1.25rem;text-align:center;border:1.5px solid var(--gray2)}
+.stat-card.urgent{border-color:#f8a8a8;background:var(--red-light)}
+.stat-card.warning{border-color:#f9c49b;background:var(--orange-light)}
+.stat-card.good{border-color:#90d4b0;background:var(--green-light)}
+.stat-n{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1}
+.stat-card.urgent .stat-n{color:var(--red)}
+.stat-card.warning .stat-n{color:var(--orange)}
+.stat-card.good .stat-n{color:var(--green)}
+.stat-l{font-size:.75rem;color:var(--gray);margin-top:.25rem}
+/* Controls */
+.controls{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.btn-primary{background:var(--navy);color:#fff;font-weight:600;font-size:.875rem;padding:.625rem 1.25rem;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--sans);transition:opacity .2s}
+.btn-primary:hover{opacity:.85}
+.btn-secondary{background:#fff;color:var(--navy);font-weight:500;font-size:.875rem;padding:.625rem 1.25rem;border-radius:var(--r);border:1.5px solid var(--gray2);cursor:pointer;font-family:var(--sans)}
+.search-box{padding:.625rem 1rem;border:1.5px solid var(--gray2);border-radius:var(--r);font-family:var(--sans);font-size:.875rem;outline:none;transition:border-color .2s;flex:1;min-width:200px}
+.search-box:focus{border-color:var(--amber)}
+/* Property cards */
+.properties-grid{display:flex;flex-direction:column;gap:1rem}
+.prop-card{background:#fff;border-radius:var(--r2);border:1.5px solid var(--gray2);overflow:hidden}
+.prop-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none}
+.prop-header:hover{background:var(--gray3)}
+.prop-name{font-weight:600;color:var(--navy);font-size:1rem}
+.prop-addr{font-size:.8125rem;color:var(--gray);margin-top:.125rem}
+.prop-status-dots{display:flex;gap:.375rem}
+.dot-cert{width:10px;height:10px;border-radius:50%}
+.dot-cert.ok{background:var(--green)}
+.dot-cert.warn{background:var(--orange)}
+.dot-cert.urgent{background:var(--red)}
+.dot-cert.missing{background:var(--gray2);border:1px solid var(--gray)}
+.prop-body{border-top:1px solid var(--gray2);padding:1.25rem;display:none}
+.prop-body.open{display:block}
+/* Cert grid */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;margin-bottom:1.25rem}
+.cert-item{border:1.5px solid var(--gray2);border-radius:var(--r);padding:1rem;position:relative}
+.cert-item.ok{border-color:#90d4b0;background:var(--green-light)}
+.cert-item.warn{border-color:#f9c49b;background:var(--orange-light)}
+.cert-item.urgent{border-color:#f8a8a8;background:var(--red-light)}
+.cert-item.missing{border-color:var(--gray2);background:var(--gray3)}
+.cert-name{font-weight:600;font-size:.875rem;color:var(--navy);margin-bottom:.25rem}
+.cert-exp{font-size:.8125rem;color:var(--gray);margin-bottom:.375rem}
+.cert-badge{display:inline-block;font-size:.6875rem;font-weight:600;padding:.2rem .5rem;border-radius:50px}
+.cert-badge.ok{background:rgba(26,107,66,.15);color:var(--green)}
+.cert-badge.warn{background:rgba(196,84,0,.15);color:var(--orange)}
+.cert-badge.urgent{background:rgba(179,27,27,.15);color:var(--red)}
+.cert-badge.missing{background:var(--gray2);color:var(--gray)}
+.cert-edit-btn{position:absolute;top:.625rem;right:.625rem;background:none;border:none;color:var(--gray);cursor:pointer;font-size:.875rem;padding:.25rem}
+.cert-edit-btn:hover{color:var(--navy)}
+.prop-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-sm{font-size:.8125rem;padding:.5rem 1rem;border-radius:var(--r);cursor:pointer;font-family:var(--sans);font-weight:500;border:1.5px solid var(--gray2);background:#fff;color:var(--navy)}
+.btn-sm:hover{border-color:var(--amber)}
+.btn-sm.danger:hover{border-color:var(--red);color:var(--red)}
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(13,27,42,.7);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:var(--r2);padding:2rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
+.modal h3{font-family:var(--serif);font-size:1.25rem;margin-bottom:.375rem}
+.modal p{font-size:.875rem;color:var(--gray);margin-bottom:1.25rem;line-height:1.6}
+.field-group{margin-bottom:1rem}
+.field-group label{display:block;font-size:.8125rem;font-weight:500;color:var(--navy);margin-bottom:.375rem}
+.field-group input,.field-group select{width:100%;padding:.625rem .875rem;border:1.5px solid var(--gray2);border-radius:var(--r);font-family:var(--sans);font-size:.9rem;color:var(--navy);outline:none;transition:border-color .2s}
+.field-group input:focus,.field-group select:focus{border-color:var(--amber)}
+.modal-actions{display:flex;gap:.75rem;justify-content:flex-end;margin-top:1.25rem}
+.btn-cancel{background:var(--gray3);color:var(--navy);border:none;padding:.625rem 1.25rem;border-radius:var(--r);cursor:pointer;font-family:var(--sans);font-weight:500}
+.btn-save{background:var(--amber);color:var(--navy);border:none;padding:.625rem 1.5rem;border-radius:var(--r);cursor:pointer;font-family:var(--sans);font-weight:700}
+/* Empty state */
+.empty{text-align:center;padding:3rem 1rem;color:var(--gray)}
+.empty h3{font-family:var(--serif);font-size:1.25rem;color:var(--navy);margin-bottom:.5rem}
+/* Toast */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--navy);color:#fff;padding:.875rem 1.25rem;border-radius:var(--r);font-size:.875rem;transform:translateY(100px);opacity:0;transition:all .3s;z-index:300;max-width:300px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:var(--green)}
+.toast.error{background:var(--red)}
+/* Cert type labels */
+.cert-type-label{font-size:.6875rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--amber);margin-bottom:.25rem}
+/* Subscription info */
+.sub-banner{background:var(--navy2);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.sub-info{font-size:.8125rem;color:rgba(255,255,255,.65)}
+.sub-info strong{color:#fff}
+.btn-manage{font-size:.75rem;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);padding:.375rem .875rem;border-radius:50px;cursor:pointer;background:none;font-family:var(--sans)}
+/* Mobile */
+@media(max-width:700px){
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .cert-grid{grid-template-columns:1fr}
+  .controls{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- Auth screen -->
+<div class="auth-screen" id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">Landlord<em>Ready</em></div>
+    <div id="auth-content">
+      <div class="auth-loading">
+        <div class="spinner"></div>
+        <p style="color:var(--gray);font-size:.9rem">Verifying your access...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main app -->
+<div class="app" id="app">
+  <header class="app-header">
+    <div class="app-logo">Landlord<em>Ready</em> <span style="font-size:.875rem;color:rgba(255,255,255,.4);font-family:var(--sans);font-weight:400">Certificate Tracker</span></div>
+    <div class="user-info" id="user-info"></div>
+  </header>
+  <div class="sub-banner">
+    <span class="sub-info"><strong>Subscription active</strong> &#183; Automated reminders at 60, 30 &amp; 7 days</span>
+    <button class="btn-manage" onclick="manageSubscription()">Manage subscription</button>
+  </div>
+  <main class="app-main">
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-card urgent" id="stat-urgent"><div class="stat-n" id="n-urgent">0</div><div class="stat-l">Urgent (&lt;7 days)</div></div>
+      <div class="stat-card warning" id="stat-warn"><div class="stat-n" id="n-warn">0</div><div class="stat-l">Due soon (7&#8211;30 days)</div></div>
+      <div class="stat-card good" id="stat-ok"><div class="stat-n" id="n-ok">0</div><div class="stat-l">Valid certificates</div></div>
+      <div class="stat-card" id="stat-props"><div class="stat-n" id="n-props">0</div><div class="stat-l">Properties tracked</div></div>
+    </div>
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn-primary" onclick="openAddProperty()">+ Add property</button>
+      <button class="btn-secondary" onclick="exportData()">Export CSV</button>
+      <input type="text" class="search-box" placeholder="Search properties..." id="search-input" oninput="filterProperties()">
+    </div>
+    <!-- Properties list -->
+    <div class="properties-grid" id="properties-list"></div>
+    <div class="empty" id="empty-state" style="display:none">
+      <div style="font-size:2.5rem;margin-bottom:1rem">&#127968;</div>
+      <h3>No properties yet</h3>
+      <p>Add your first property to start tracking certificate expiry dates.</p>
+      <button class="btn-amber" style="width:auto;margin-top:1rem" onclick="openAddProperty()">Add your first property</button>
+    </div>
+  </main>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="property-modal">
+  <div class="modal">
+    <h3 id="prop-modal-title">Add property</h3>
+    <p>Enter the property details. You can add certificate dates after adding the property.</p>
+    <div class="field-group"><label>Property name / reference *</label><input type="text" id="prop-name" placeholder="e.g. Flat 3, 14 Church Street"></div>
+    <div class="field-group"><label>Address *</label><input type="text" id="prop-addr" placeholder="Full address including postcode"></div>
+    <div class="field-group"><label>Property type</label>
+      <select id="prop-type">
+        <option value="Standard single-let">Standard single-let</option>
+        <option value="HMO">House in Multiple Occupation (HMO)</option>
+        <option value="Student accommodation">Student accommodation</option>
+        <option value="Short-term let">Short-term / holiday let</option>
+      </select>
+    </div>
+    <div class="field-group"><label>Notes (optional)</label><input type="text" id="prop-notes" placeholder="e.g. 3-bed semi, gas central heating"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('property-modal')">Cancel</button>
+      <button class="btn-save" onclick="saveProperty()">Save property</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="cert-modal">
+  <div class="modal">
+    <h3 id="cert-modal-title">Add certificate</h3>
+    <p>Enter the expiry date. We&#8217;ll send reminders at 60, 30, and 7 days before expiry.</p>
+    <div class="field-group"><label>Certificate type *</label>
+      <select id="cert-type">
+        <option value="Gas Safety Certificate">Gas Safety Certificate (annual)</option>
+        <option value="EICR">Electrical Installation Condition Report &#8212; EICR (5 years)</option>
+        <option value="EPC">Energy Performance Certificate &#8212; EPC (10 years)</option>
+        <option value="HMO Licence">House in Multiple Occupation Licence (5 years)</option>
+        <option value="PRS Registration">Private Rented Sector Database Registration</option>
+        <option value="Smoke Alarm Check">Smoke &amp; Carbon Monoxide Alarm Check</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="field-group" id="cert-other-group" style="display:none">
+      <label>Certificate name *</label>
+      <input type="text" id="cert-other-name" placeholder="Describe the certificate">
+    </div>
+    <div class="field-group"><label>Expiry / renewal date *</label><input type="date" id="cert-expiry"></div>
+    <div class="field-group"><label>Issue date (optional)</label><input type="date" id="cert-issued"></div>
+    <div class="field-group"><label>Provider / contractor (optional)</label><input type="text" id="cert-provider" placeholder="e.g. British Gas, local electrician"></div>
+    <div class="field-group"><label>Notes (optional)</label><input type="text" id="cert-notes" placeholder="e.g. Renewal booked"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('cert-modal')">Cancel</button>
+      <button class="btn-save" onclick="saveCert()">Save certificate</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+'use strict';
+
+// âââ State ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+var STATE = { auth: null, properties: [], editingPropId: null, editingCertId: null, editingCertPropId: null };
+
+// âââ Auth âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+(function init() {
+  var params = new URLSearchParams(location.search);
+  var sessionId = params.get('session_id');
+  
+  // Check localStorage for cached session
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem('lr_tracker_session') || 'null'); } catch(e) {}
+  
+  if (cached && cached.session_id && (Date.now() - cached.cached_at < 24 * 3600 * 1000)) {
+    // Use cached auth
+    STATE.auth = cached;
+    if (sessionId) window.history.replaceState({}, '', '/tracker');
+    loadApp();
+    return;
+  }
+  
+  if (!sessionId) {
+    showAuthError('No access session found. Please subscribe to access the tracker.', true);
+    return;
+  }
+  
+  // Validate with server
+  fetch('/api/auth?session_id=' + encodeURIComponent(sessionId))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.valid) {
+        if (data.cancelled) {
+          showAuthError('Your subscription has been cancelled. Resubscribe to regain access.', true);
+        } else {
+          showAuthError('AccessÛÝ[ÝH\YYY	È
+È
+]K\Ü	ÉÊKYJNÂB]\ÂBÕUK]]H]NÂ]KØXÚYØ]H]KÝÊ
+NÂHÈØØ[ÝÜYÙKÙ]][J	ÛÝXÚÙ\ÜÙ\ÜÚ[ÛËÓÓÝ[ÚYJ]JJNÈHØ]Ú
+JHßBÚ[ÝË\ÝÜK\XÙTÝ]JßK	ÉË	ËÝXÚÙ\ÊNÂØY\
+
+NÂJBØ]Ú
+[Ý[Û\HÂÛÛÛÛK\Ü	Ð]]\ÜË\NÂÚÝÐ]]\Ü	ÐÛÝ[Ý\YHXØÙ\ÜËX\ÙHHYØZ[ËYJNÂJNÂJJ
+NÂ[Ý[ÛÚÝÐ]]\Ü\ÙËÚÝÔÝXØÜXPHÂ\[H	ÏÛ\ÜÏH]]]]HXØÙ\ÜÈ\]Z\YÚÈ
+Â	ÏÛ\ÜÏH]]\ÝXÈ
+È\ÙÈ
+È	ÏÜÎÂY
+ÚÝÔÝXØÜXPHÂ[
+ÏH	ÏHYHÈÝXÚÙ\Ý[OH\Ü^NØÚÎØXÚÙÜÝ[\KX[X\NØÛÛÜ\K[]JNÙÛ]ÙZYÚÌÙÛ\Ú^NLÍÍ\[NÜY[Î
+Í\[H[NØÜ\\Y]\ÎÝ^YXÛÜ][ÛÛNÛX\Ú[]Ü\[HÝXØÜXHÈÙ\YXØ]HXÚÙ\	\ÏØOÎÂBØÝ[Y[Ù][[Y[RY
+	Ø]]XÛÛ[	ÊK[\SH[ÂB[Ý[ÛØY\
+
+HÂËÈØYØ]YÜ\Y\ÈÛHØØ[ÝÜYÙBHÂ\Ø]YHØØ[ÝÜYÙKÙ]][J	ÛÜÜ\Y\ÉÊNÂY
+Ø]Y
+HÕUKÜ\Y\ÈHÓÓ\ÙJØ]Y
+NÂHØ]Ú
+JHßBØÝ[Y[Ù][[Y[RY
+	Ø]]\ØÜY[ÊKÝ[K\Ü^HH	ÛÛIÎÂØÝ[Y[Ù][[Y[RY
+	Ø\	ÊKÛ\ÜÓ\ÝY
+	Ý\ÚXIÊNÂY
+ÕUK]]	ÕUK]][XZ[
+HÂØÝ[Y[Ù][[Y[RY
+	Ý\Ù\Z[ÉÊK^ÛÛ[HÕUK]][XZ[ÂB[\[
+
+NÂBËÈ8¥ 8¥ 8¥ \Ú\Ý[ÙH8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ [Ý[ÛØ]J
+HÂHÈØØ[ÝÜYÙKÙ]][J	ÛÜÜ\Y\ÉËÓÓÝ[ÚYJÕUKÜ\Y\ÊJNÈHØ]Ú
+JHßBBËÈ8¥ 8¥ 8¥ Ù\ÙÚXÈ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ [Ý[Û^\Õ[[
+]TÝHÂY
+Y]TÝH]\[Â\YH]È]J]TÝKÙ]Ý\Ê
+HH]È]J
+KÙ]Ý\Ê
+NÂ]\X]ÙZ[
+YÈ
+
+NÂB[Ý[ÛÙ\Ý]\ÊÙ\
+HÂ\H^\Õ[[
+Ù\^\JNÂY
+OOH[
+H]\	ÛZ\ÜÚ[ÉÎÂY
+
+H]\	Ý\Ù[	ÎÂY
+H
+ÊH]\	Ý\Ù[	ÎÂY
+HÌ
+H]\	ÝØ\ÎÂ]\	ÛÚÉÎÂB[Ý[ÛÙ\YÙU^
+Ù\
+HÂ\H^\Õ[[
+Ù\^\JNÂY
+OOH[
+H]\	ÓÝXÛÜY	ÎÂY
+
+H]\	ÑVTQ	È
+ÈX]XÊ
+H
+È	È^\ÈYÛÉÎÂY
+OOH
+H]\	Ñ^\\ÈÑVIÎÂY
+OOHJH]\	Ñ^\\ÈÛ[ÜÝÉÎÂ]\	Ñ^\\È[	È
+È
+È	È^\ÉÎÂB[Ý[ÛÜÝ]\ÊÜ
+HÂY
+\ÜÙ\ÈÜÙ\Ë[ÝOOH
+H]\	ÛZ\ÜÚ[ÉÎÂ\Ý]\Ù\ÈHÜÙ\ËX\
+Ù\Ý]\ÊNÂY
+Ý]\Ù\Ë[ÛY\Ê	Ý\Ù[	ÊJH]\	Ý\Ù[	ÎÂY
+Ý]\Ù\Ë[ÛY\Ê	ÝØ\ÊJH]\	ÝØ\ÎÂ]\	ÛÚÉÎÂBËÈ8¥ 8¥ 8¥ [\8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ [Ý[Û[\[
+
+HÂ\]Y\HH
+ØÝ[Y[Ù][[Y[RY
+	ÜÙX\ÚZ[]	ÊK[YH	ÉÊKÓÝÙ\Ø\ÙJ
+NÂ\[\YHÕUKÜ\Y\Ë[\[Ý[Û
+HÂ]\\]Y\H[YKÓÝÙ\Ø\ÙJ
+K[ÛY\Ê]Y\JHY\ÜËÓÝÙ\Ø\ÙJ
+K[ÛY\Ê]Y\JNÂJNÂËÈÝ]Â\\Ù[HØ\HÚÈHÂÕUKÜ\Y\ËÜXXÚ
+[Ý[Û
+HÂ
+Ù\È×JKÜXXÚ
+[Ý[ÛÊHÂ\ÈHÙ\Ý]\ÊÊNÂY
+ÈOOH	Ý\Ù[	ÊH\Ù[
+ÊÎÂ[ÙHY
+ÈOOH	ÝØ\ÊHØ\ÊÎÂ[ÙHY
+ÈOOH	ÛÚÉÊHÚÊÊÎÂJNÂJNÂØÝ[Y[Ù][[Y[RY
+	Û]\Ù[	ÊK^ÛÛ[H\Ù[ÂØÝ[Y[Ù][[Y[RY
+	Û]Ø\ÊK^ÛÛ[HØ\ÂØÝ[Y[Ù][[Y[RY
+	Û[ÚÉÊK^ÛÛ[HÚÎÂØÝ[Y[Ù][[Y[RY
+	Û\ÜÉÊK^ÛÛ[HÕUKÜ\Y\Ë[ÝÂ\\ÝHØÝ[Y[Ù][[Y[RY
+	ÜÜ\Y\Ë[\Ý	ÊNÂ\[\HHØÝ[Y[Ù][[Y[RY
+	Ù[\K\Ý]IÊNÂY
+[\Y[ÝOOH
+HÂ\Ý[\SH	ÉÎÂ[\KÝ[K\Ü^HHÕUKÜ\Y\Ë[ÝOOHÈ	ÉÈ	ÛÛIÎÂY
+ÕUKÜ\Y\Ë[Ý	]Y\JHÂ\Ý[\SH	ÏÝ[OHÛÛÜ\KYÜ^JNÝ^X[YÛÙ[\ÜY[Î[HÈÜ\Y\ÈX]Ú[Ý\ÙX\ÚÜÎÂB]\ÂB[\KÝ[K\Ü^HH	ÛÛIÎÂ\Ý[\SH[\YX\
+[\Ü
+KÚ[	ÉÊNÂB[Ý[Û[\Ü
+Ü
+HÂ\Ý]\ÈHÜÝ]\ÊÜ
+NÂ\ÝÈH
+ÜÙ\È×JKX\
+[Ý[ÛÊHÂ]\	Ï]Û\ÜÏHÝXÙ\	È
+ÈÙ\Ý]\ÊÊH
+È	È]OHÈ
+ÈË\H
+È	Î	È
+ÈÙ\YÙU^
+ÊH
+È	ÈÙ]ÎÂJKÚ[	ÉÊNÂ\Ù\Ò[H	ÉÎÂY
+ÜÙ\È	ÜÙ\Ë[Ý
+HÂÙ\Ò[HÜÙ\ËX\
+[Ý[ÛÊHÂ\ÝHÙ\Ý]\ÊÊNÂ]\	Ï]Û\ÜÏHÙ\Z][H	È
+ÈÝ
+È	ÈÈ
+Â	Ï]ÛÛ\ÜÏHÙ\YY]XÛÛXÚÏHY]Ù\
+	ÉÈ
+ÈÜY
+È	×	Ë	ÉÈ
+ÈËY
+È	×	ÊH]OHY]ÎNNNÏØ]ÛÈ
+Â	Ï]Û\ÜÏHÙ\]\K[X[È
+ÈË\H
+È	ÏÙ]È
+Â	Ï]Û\ÜÏHÙ\[[YHÈ
+È
+ËÝY\	ÓÈÝY\XÛÜY	ÊH
+È	ÏÙ]È
+Â	Ï]Û\ÜÏHÙ\Y^È
+È
+Ë^\HÈ	Ñ^\\Î	È
+ÈÜX]]JË^\JH	ÓÈ]HÙ]	ÊH
+È	ÏÙ]È
+Â	ÏÜ[Û\ÜÏHÙ\XYÙH	È
+ÈÝ
+È	ÈÈ
+ÈÙ\YÙU^
+ÊH
+È	ÏÜÜ[È
+Â	ÏÙ]ÎÂJKÚ[	ÉÊNÂH[ÙHÂÙ\Ò[H	ÏÝ[OHÛÛÜ\KYÜ^JNÙÛ\Ú^N
+Í\[NÛX\Ú[XÝÛN\[HÈÙ\YXØ]\ÈYYY]Y[Ý\\ÝÙ\YXØ]HÈÝ\XÚÚ[ËÜÎÂB]\	Ï]Û\ÜÏHÜXØ\YHÜIÈ
+ÈÜY
+È	ÈÈ
+Â	Ï]Û\ÜÏHÜZXY\ÛÛXÚÏHÙÙÛTÜ
+	ÉÈ
+ÈÜY
+È	×	ÊHÈ
+Â	Ï]È
+Â	Ï]Û\ÜÏHÜ[[YHÈ
+È\ØÊÜ[YJH
+È	ÏÙ]È
+Â	Ï]Û\ÜÏHÜXYÈ
+È\ØÊÜY\ÜÊH
+È
+Ü\HÈ	È	ÜÉÌNÎÉÜÈ	È
+È\ØÊÜ\JH	ÉÊH
+È	ÏÙ]È
+Â	ÏÙ]È
+Â	Ï]Û\ÜÏHÜ\Ý]\ËYÝÈÈ
+ÈÝÈ
+È	ÏÙ]È
+Â	ÏÙ]È
+Â	Ï]Û\ÜÏHÜXÙHYHÜÙKIÈ
+ÈÜY
+È	ÈÈ
+Â	Ï]Û\ÜÏHÙ\YÜYÈ
+ÈÙ\Ò[
+È	ÏÙ]È
+Â	Ï]Û\ÜÏHÜXXÝ[ÛÈÈ
+Â	Ï]ÛÛ\ÜÏH\ÛHÛÛXÚÏHÜ[YÙ\
+	ÉÈ
+ÈÜY
+È	×	ÊHÈYÙ\YXØ]OØ]ÛÈ
+Â	Ï]ÛÛ\ÜÏH\ÛHÛÛXÚÏHY]Ü
+	ÉÈ
+ÈÜY
+È	×	ÊHY]Ü\OØ]ÛÈ
+Â	Ï]ÛÛ\ÜÏH\ÛH[Ù\ÛÛXÚÏH[]TÜ
+	ÉÈ
+ÈÜY
+È	×	ÊH[[ÝHÜ\OØ]ÛÈ
+Â	ÏÙ]È
+Â	ÏÙ]È
+Â	ÏÙ]ÎÂB[Ý[ÛÜX]]J
+HÂY
+Y
+H]\	ÉÎÂ\\ÈHÜ]
+	ËIÊNÂ]\\ÖÌH
+È	ËÉÈ
+È\ÖÌWH
+È	ËÉÈ
+È\ÖÌNÂB[Ý[Û\ØÊÊHÂ]\Ý[ÊÈ	ÉÊK\XÙJÉÙË	É[\ÉÊK\XÙJÏÙË	ÉÉÊK\XÙJÏÙË	ÉÝÉÊK\XÙJÈÙË	É][ÝÉÊNÂBËÈ8¥ 8¥ 8¥ XÝ[ÛÈ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ Ú[ÝËÙÙÛTÜH[Ý[ÛY
+HÂ\ÙHHØÝ[Y[Ù][[Y[RY
+	ÜÜÙKIÈ
+ÈY
+NÂY
+ÙJHÙKÛ\ÜÓ\ÝÙÙÛJ	ÛÜ[ÊNÂNÂÚ[ÝË[\Ü\Y\ÈH[Ý[Û
+HÈ[\[
+
+NÈNÂËÈ8¥ 8¥ YÙY]Ü\H8 %8¥ Ú[ÝËÜ[YÜ\HH[Ý[Û
+HÂÕUKY][ÔÜYH[ÂØÝ[Y[Ù][[Y[RY
+	ÜÜ[[Ù[]]IÊK^ÛÛ[H	ÐYÜ\IÎÂØÝ[Y[Ù][[Y[RY
+	ÜÜ[[YIÊK[YHH	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ÜÜXYÊK[YHH	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ÜÜ]\IÊK[YHH	ÔÝ[\Ú[ÛK[]	ÎÂØÝ[Y[Ù][[Y[RY
+	ÜÜ[Ý\ÉÊK[YHH	ÉÎÂÚÝÓ[Ù[
+	ÜÜ\K[[Ù[	ÊNÂNÂÚ[ÝËY]ÜH[Ý[ÛY
+HÂ\ÜHÕUKÜ\Y\Ë[
+[Ý[Û
+HÈ]\YOOHYÈJNÂY
+\Ü
+H]\ÂÕUKY][ÔÜYHYÂØÝ[Y[Ù][[Y[RY
+	ÜÜ[[Ù[]]IÊK^ÛÛ[H	ÑY]Ü\IÎÂØÝ[Y[Ù][[Y[RY
+	ÜÜ[[YIÊK[YHHÜ[YNÂØÝ[Y[Ù][[Y[RY
+	ÜÜXYÊK[YHHÜY\ÜÎÂØÝ[Y[Ù][[Y[RY
+	ÜÜ]\IÊK[YHHÜ\H	ÔÝ[\Ú[ÛK[]	ÎÂØÝ[Y[Ù][[Y[RY
+	ÜÜ[Ý\ÉÊK[YHHÜÝ\È	ÉÎÂÚÝÓ[Ù[
+	ÜÜ\K[[Ù[	ÊNÂNÂÚ[ÝËØ]TÜ\HH[Ý[Û
+HÂ\[YHHØÝ[Y[Ù][[Y[RY
+	ÜÜ[[YIÊK[YK[J
+NÂ\YHØÝ[Y[Ù][[Y[RY
+	ÜÜXYÊK[YK[J
+NÂY
+[[YHXYHÈÚÝÕØ\Ý
+	ÔX\ÙH[[Ü\H[YH[Y\ÜÉË	Ù\ÜÊNÈ]\ÈBY
+ÕUKY][ÔÜY
+HÂ\ÜHÕUKÜ\Y\Ë[
+[Ý[Û
+HÈ]\YOOHÕUKY][ÔÜYÈJNÂY
+Ü
+HÂÜ[YHH[YNÂÜY\ÜÈHYÂÜ\HHØÝ[Y[Ù][[Y[RY
+	ÜÜ]\IÊK[YNÂÜÝ\ÈHØÝ[Y[Ù][[Y[RY
+	ÜÜ[Ý\ÉÊK[YK[J
+NÂBÚÝÕØ\Ý
+	ÔÜ\H\]Y	Ë	ÜÝXØÙ\ÜÉÊNÂH[ÙHÂÕUKÜ\Y\Ë\Ú
+ÂY	ÜÜÉÈ
+È]KÝÊ
+K[YN[YKY\ÜÎY\NØÝ[Y[Ù][[Y[RY
+	ÜÜ]\IÊK[YKÝ\ÎØÝ[Y[Ù][[Y[RY
+	ÜÜ[Ý\ÉÊK[YK[J
+KÙ\Î×KÜX]Y]È]J
+KÒTÓÔÝ[Ê
+BJNÂÚÝÕØ\Ý
+	ÔÜ\HYY	Ë	ÜÝXØÙ\ÜÉÊNÂBØ]J
+NÂÛÜÙS[Ù[
+	ÜÜ\K[[Ù[	ÊNÂ[\[
+
+NÂNÂÚ[ÝË[]TÜH[Ý[ÛY
+HÂY
+XÛÛ\J	Ô[[ÝH\ÈÜ\H[[]ÈÙ\YXØ]\ÏÉÊJH]\ÂÕUKÜ\Y\ÈHÕUKÜ\Y\Ë[\[Ý[Û
+HÈ]\YOOHYÈJNÂØ]J
+NÂ[\[
+
+NÂÚÝÕØ\Ý
+	ÔÜ\H[[ÝY	Ë	ÜÝXØÙ\ÜÉÊNÂNÂËÈ8¥ 8¥ YÙY]Ù\8¥ 8¥ ØÝ[Y[Ù][[Y[RY
+	ØÙ\]\IÊKY][\Ý[\	ØÚ[ÙIË[Ý[Û
+HÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\YÜÝ\	ÊKÝ[K\Ü^HB\Ë[YHOOH	ÓÝ\ÈÈ	ÉÈ	ÛÛIÎÂJNÂÚ[ÝËÜ[YÙ\H[Ý[ÛÜY
+HÂÕUKY][ÐÙ\YH[ÂÕUKY][ÐÙ\ÜYHÜYÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[[Ù[]]IÊK^ÛÛ[H	ÐYÙ\YXØ]IÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\]\IÊK[YHH	ÑØ\ÈØY]HÙ\YXØ]IÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\YÜÝ\	ÊKÝ[K\Ü^HH	ÛÛIÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\Y^\IÊK[YHH	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\Z\ÜÝYY	ÊK[YHH	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\\ÝY\ÊK[YHH	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\ÉÊK[YHH	ÉÎÂÚÝÓ[Ù[
+	ØÙ\[[Ù[	ÊNÂNÂÚ[ÝËY]Ù\H[Ý[ÛÜYÙ\Y
+HÂ\ÜHÕUKÜ\Y\Ë[
+[Ý[Û
+HÈ]\YOOHÜYÈJNÂY
+\Ü
+H]\Â\Ù\H
+ÜÙ\È×JK[
+[Ý[ÛÊHÈ]\ËYOOHÙ\YÈJNÂY
+XÙ\
+H]\ÂÕUKY][ÐÙ\YHÙ\YÂÕUKY][ÐÙ\ÜYHÜYÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[[Ù[]]IÊK^ÛÛ[H	ÑY]Ù\YXØ]IÎÂ\\TÙ[XÝHØÝ[Y[Ù][[Y[RY
+	ØÙ\]\IÊNÂ\ÛÝÛ\\ÈH\^KÛJ\TÙ[XÝÜ[ÛÊKX\
+[Ý[ÛÊHÈ]\Ë[YNÈJNÂY
+ÛÝÛ\\Ë[ÛY\ÊÙ\\JJHÂ\TÙ[XÝ[YHHÙ\\NÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\YÜÝ\	ÊKÝ[K\Ü^HH	ÛÛIÎÂH[ÙHÂ\TÙ[XÝ[YHH	ÓÝ\ÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\[[YIÊK[YHHÙ\\NÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\YÜÝ\	ÊKÝ[K\Ü^HH	ÉÎÂBØÝ[Y[Ù][[Y[RY
+	ØÙ\Y^\IÊK[YHHÙ\^\H	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\Z\ÜÝYY	ÊK[YHHÙ\\ÜÝYY	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\\ÝY\ÊK[YHHÙ\ÝY\	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\ÉÊK[YHHÙ\Ý\È	ÉÎÂÚÝÓ[Ù[
+	ØÙ\[[Ù[	ÊNÂNÂÚ[ÝËØ]PÙ\H[Ý[Û
+HÂ\\U[HØÝ[Y[Ù][[Y[RY
+	ØÙ\]\IÊK[YNÂ\Ù\\HH\U[OOH	ÓÝ\ÂÈØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\[[YIÊK[YK[J
+B\U[Â\^\HHØÝ[Y[Ù][[Y[RY
+	ØÙ\Y^\IÊK[YNÂY
+XÙ\\JHÈÚÝÕØ\Ý
+	ÔX\ÙH[\HÙ\YXØ]H[YIË	Ù\ÜÊNÈ]\ÈBY
+Y^\JHÈÚÝÕØ\Ý
+	ÔX\ÙH[\[^\H]IË	Ù\ÜÊNÈ]\ÈB\ÜHÕUKÜ\Y\Ë[
+[Ý[Û
+HÈ]\YOOHÕUKY][ÐÙ\ÜYÈJNÂY
+\Ü
+H]\ÂY
+\ÜÙ\ÊHÜÙ\ÈH×NÂY
+ÕUKY][ÐÙ\Y
+HÂ\Ù\HÜÙ\Ë[
+[Ý[ÛÊHÈ]\ËYOOHÕUKY][ÐÙ\YÈJNÂY
+Ù\
+HÂÙ\\HHÙ\\NÂÙ\^\HH^\NÂÙ\\ÜÝYYHØÝ[Y[Ù][[Y[RY
+	ØÙ\Z\ÜÝYY	ÊK[YNÂÙ\ÝY\HØÝ[Y[Ù][[Y[RY
+	ØÙ\\ÝY\ÊK[YK[J
+NÂÙ\Ý\ÈHØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\ÉÊK[YK[J
+NÂBÚÝÕØ\Ý
+	ÐÙ\YXØ]H\]Y	Ë	ÜÝXØÙ\ÜÉÊNÂH[ÙHÂËÈÚXÚÈÜ\XØ]H\B\^\Ý[ÈHÜÙ\Ë[
+[Ý[ÛÊHÈ]\Ë\HOOHÙ\\NÈJNÂY
+^\Ý[ÊHÂY
+XÛÛ\J	ÐH	È
+ÈÙ\\H
+È	È[XYH^\ÝÈÜ\ÈÜ\KY[Ý\[]Ø^OÉÊJH]\ÂBÜÙ\Ë\Ú
+ÂY	ØÙ\ÉÈ
+È]KÝÊ
+K\NÙ\\K^\N^\K\ÜÝYYØÝ[Y[Ù][[Y[RY
+	ØÙ\Z\ÜÝYY	ÊK[YKÝY\ØÝ[Y[Ù][[Y[RY
+	ØÙ\\ÝY\ÊK[YK[J
+KÝ\ÎØÝ[Y[Ù][[Y[RY
+	ØÙ\[Ý\ÉÊK[YK[J
+KÜX]Y]È]J
+KÒTÓÔÝ[Ê
+BJNÂÚÝÕØ\Ý
+	ÐÙ\YXØ]HYY	Ë	ÜÝXØÙ\ÜÉÊNÂBØ]J
+NÂÛÜÙS[Ù[
+	ØÙ\[[Ù[	ÊNÂ[\[
+
+NÂËÈ^[HÜ\HØ\\ÙHHØÝ[Y[Ù][[Y[RY
+	ÜÜÙKIÈ
+ÈÕUKY][ÐÙ\ÜY
+NÂY
+ÙJHÙKÛ\ÜÓ\ÝY
+	ÛÜ[ÊNÂNÂËÈ8¥ 8¥ 8¥ ^ÜÔÕ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ Ú[ÝË^Ü]HH[Ý[Û
+HÂ\ÝÜÈHÖÉÔÜ\IË	ÐY\ÜÉË	ÐÙ\YXØ]IË	Ñ^\IË	ÔÝ]\ÉË	Ñ^\È[[^\IË	ÔÝY\×WNÂÕUKÜ\Y\ËÜXXÚ
+[Ý[Û
+HÂ
+Ù\È×JKÜXXÚ
+[Ý[ÛÊHÂ\H^\Õ[[
+Ë^\JNÂÝÜË\Ú
+Â[YKY\ÜËË\KË^\HÈÜX]]JË^\JH	ÉËÙ\Ý]\ÊÊKOOH[È	ÉËËÝY\	ÉÂJNÂJNÂY
+\Ù\ÈÙ\Ë[ÝOOH
+HÂÝÜË\Ú
+Ü[YKY\ÜË	ÊÈÙ\YXØ]\ÊIË	ÉË	ÉË	ÉË	É×JNÂBJNÂ\ÜÝHÝÜËX\
+[Ý[ÛHÂ]\X\
+[Ý[ÛÙ[
+HÈ]\	ÈÈ
+ÈÝ[ÊÙ[
+K\XÙJÈÙË	ÈÊH
+È	ÈÎÈJKÚ[	Ë	ÊNÂJKÚ[	×ÊNÂ\ØH]ÈØØÜÝKÈ\N	Ý^ØÜÝÈJNÂ\HHØÝ[Y[ÜX]Q[[Y[
+	ØIÊNÂKYHTÜX]SØXÝT
+ØNÂKÝÛØYH	Ó[ÜXYKPÙ\YXØ]\ËIÈ
+È]È]J
+KÒTÓÔÝ[Ê
+KÜ]
+	Õ	ÊVÌH
+È	ËÜÝÎÂKÛXÚÊ
+NÂÚÝÕØ\Ý
+	ÐÔÕ^ÜY	Ë	ÜÝXØÙ\ÜÉÊNÂNÂËÈ8¥ 8¥ 8¥ ÝXØÜ\[ÛX[YÙ[Y[8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ Ú[ÝËX[YÙTÝXØÜ\[ÛH[Ý[Û
+HÂËÈY\XÝÈÝ\HÝ\ÝÛY\Ü[\Ý\TÜ[\H	ÚÎËØ[[ËÝ\KÛÛKÜÛÙÚ[ÉÈ
+È
+Ú[ÝËÕTWÔÔSÒQ	ÉÊNÂY
+]Ú[ÝËÕTWÔÔSÒQ
+HÂ[\
+	ÕÈX[YÙH[Ý\ÝXØÜ\[ÛX\ÙH[XZ[[[ÜXYKÛËZÉÊNÂ]\ÂBÚ[ÝËÜ[Ý\TÜ[\	×Ø[ÉÊNÂNÂËÈ8¥ 8¥ 8¥ [Ù[[\È8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ Ú[ÝËÚÝÓ[Ù[H[Ý[ÛY
+HÈØÝ[Y[Ù][[Y[RY
+Y
+KÛ\ÜÓ\ÝY
+	ÜÚÝÉÊNÈNÂÚ[ÝËÛÜÙS[Ù[H[Ý[ÛY
+HÈØÝ[Y[Ù][[Y[RY
+Y
+KÛ\ÜÓ\Ý[[ÝJ	ÜÚÝÉÊNÈNÂØÝ[Y[]Y\TÙ[XÝÜ[
+	Ë[Ù[[Ý\^IÊKÜXXÚ
+[Ý[ÛÊHÂËY][\Ý[\	ØÛXÚÉË[Ý[ÛJHÈY
+K\Ù]OOHÊHËÛ\ÜÓ\Ý[[ÝJ	ÜÚÝÉÊNÈJNÂJNÂËÈ8¥ 8¥ 8¥ Ø\Ý8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ \Ø\Ý[Y\Â[Ý[ÛÚÝÕØ\Ý
+\ÙË\JHÂ\HØÝ[Y[Ù][[Y[RY
+	ÝØ\Ý	ÊNÂ^ÛÛ[H\ÙÎÂÛ\ÜÓ[YHH	ÝØ\ÝÚÝÉÈ
+È
+\HÈ	È	È
+È\H	ÉÊNÂÛX\[Y[Ý]
+Ø\Ý[Y\NÂØ\Ý[Y\HÙ][Y[Ý]
+[Ý[Û
+HÈÛ\ÜÓ[YHH	ÝØ\Ý	ÎÈKÌ
+NÂBJJ
+NÂÜØÜ\ØÙOÚ[
