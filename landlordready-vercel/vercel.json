@@ -1,14 +1,11 @@
 {
-  "rewrites": [
-    { "source": "/api/report",     "destination": "/api/report.js" },
-    { "source": "/api/checkout",   "destination": "/api/checkout.js" },
-    { "source": "/api/webhook",    "destination": "/api/webhook.js" },
-    { "source": "/api/download",   "destination": "/api/download.js" },
-    { "source": "/api/auth",       "destination": "/api/auth.js" },
-    { "source": "/api/reminders",  "destination": "/api/reminders.js" },
-    { "source": "/tracker",        "destination": "/tracker.html" },
-    { "source": "/download",       "destination": "/download.html" }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "functions": {
+    "api/download.js": {
+      "includeFiles": "private/**"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
